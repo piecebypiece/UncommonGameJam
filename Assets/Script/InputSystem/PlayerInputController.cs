@@ -8,11 +8,15 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] PlayerInput _input;
     [SerializeField] IMoveable _player;
     [SerializeField] MoveCore moveCore;
-    [SerializeField] GameObject player;
+    [SerializeField] public GameObject player;
 
     private void Awake()
     {
         TryGetComponent(out _input);
+    }
+
+    public void PlayerSetting()
+    {
         player.TryGetComponent(out _player);
     }
 

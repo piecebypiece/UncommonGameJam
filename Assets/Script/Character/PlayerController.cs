@@ -7,6 +7,8 @@ public class PlayerController : MoveCore
 {
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] PhotonView PV;
+    [SerializeField] GameObject inputController;
+    [SerializeField] PlayerInputController PlayerInputController;
 
     protected override void Awake()
     {
@@ -17,6 +19,18 @@ public class PlayerController : MoveCore
     {
         DontDestroyOnLoad(gameObject);
 
+        if(PV.IsMine)
+        {
+            inputController = GameObject.Find("InputManager");
+            if(inputController != null)
+            {
+                Debug.Log(GameObject.Find("InputManager").name);
+                inputController.TryGetComponent(out PlayerInputController playerInputController);
+                playerInputController.player = this.gameObject;
+                playerInputController.PlayerSetting();
+            }
+
+        }
     }
 
     protected override void FixedUpdate()
