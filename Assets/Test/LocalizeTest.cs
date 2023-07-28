@@ -9,8 +9,4 @@ public class LocalizeTest : MonoBehaviour
     public Locale baselocale;
 
     public Locale myLocale;
-
-
-
-    
 }
