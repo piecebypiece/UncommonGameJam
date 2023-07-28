@@ -1,28 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Network
+
+public class HostNetworkController : INetworkController
 {
-    public class HostNetworkController : INetworkController
+    public void GameEnd()
     {
-        public void GameEnd()
-        {
-            throw new System.NotImplementedException();
-        }
+        throw new System.NotImplementedException();
+    }
 
-        public void GamePause()
-        {
-            throw new System.NotImplementedException();
-        }
+    public void GamePause()
+    {
+        throw new System.NotImplementedException();
+    }
 
-        public void GameStart()
-        {
-            throw new System.NotImplementedException();
-        }
+    public void GameStart()
+    {
+        throw new System.NotImplementedException();
+    }
 
-        public void OnItem()
-        {
-            throw new System.NotImplementedException();
-        }
+    public void OnItem()
+    {
+        throw new System.NotImplementedException();
     }
 }

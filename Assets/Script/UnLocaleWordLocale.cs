@@ -5,6 +5,6 @@ using UnityEngine.Localization.Tables;
 public class UnLocalizeWord : MonoSingleton<UnLocalizeWord>
 {
     [SerializeField]
-    private StringTable _currentStringTable;
-    public string Localize(string key) => _currentStringTable[key].LocalizedValue;
+    private StringTable currentStringTable;
+    public string Localize(string key) => currentStringTable[key].LocalizedValue;
 }
