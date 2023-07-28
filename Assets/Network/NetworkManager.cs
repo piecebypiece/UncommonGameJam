@@ -61,6 +61,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         print("방참가완료");
         PhotonNetwork.LoadLevel("GameScene");
+        // 테스트용
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        Debug.Log("플레이어 생성");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message) => print("방만들기실패");
