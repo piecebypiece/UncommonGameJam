@@ -2,27 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonoSingleton : MonoBehaviour
+public class MonoSingleton<T> : MonoBehaviour where T : class, new()
 {
-    static MonoSingleton sInst;
+    static protected MonoSingleton<T> sInst;
+    protected T inst;
 
     private void Awake()
     {
-        GameObject.DontDestroyOnLoad(Inst);
+        GameObject.DontDestroyOnLoad(this);
     }
-    public static MonoSingleton GetInstandce()
+    public static T GetInstandce()
     {
         if (sInst == null)
         {
-            sInst = GameObject.FindObjectOfType<MonoSingleton>();
+            sInst = GameObject.FindObjectOfType<MonoSingleton<T>>();
             if(sInst == null )
             {
-                sInst = new MonoSingleton();
+                sInst = new MonoSingleton<T>();
             }
         }
 
-        return sInst;
+        return sInst.inst;
     }
 
-    public static MonoSingleton Inst => GetInstandce();
+    public static T Inst => GetInstandce();
 }
