@@ -11,11 +11,6 @@ public class LocalizeTest : MonoBehaviour
     public Locale myLocale;
 
 
-    [ContextMenu("Testing")]
-    public void test()
-    {
-        Debug.Log(Helper.Localize(myLocale, testKey)); 
-    }
 
     
 }
