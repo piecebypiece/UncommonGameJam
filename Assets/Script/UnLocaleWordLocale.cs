@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.Localization.Tables;
 
-// 번역되지 않아야하는 게임단어를 번역해주는 매니저 클래스입니다.
-// Locale key 는 Game 입니다.
-public class UnLocaleWordLocale : MonoSingleton<UnLocaleWordLocale>
+// 번역되지 않아야하는 게임단어를 고정적으로 반환해주는 클래스.
+public class UnLocalizeWord : MonoSingleton<UnLocalizeWord>
 {
     [SerializeField]
     private StringTable _currentStringTable;
