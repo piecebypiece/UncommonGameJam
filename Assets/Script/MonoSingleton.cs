@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class MonoSingleton : MonoBehaviour
 {
-    static MonoSingleton Inst;
-    // Start is called before the first frame update
+    static MonoSingleton sInst;
+
+    private void Awake()
+    {
+        GameObject.DontDestroyOnLoad(Inst);
+    }
     public static MonoSingleton GetInstandce()
     {
+        if (sInst == null)
+        {
+            sInst = GameObject.FindObjectOfType<MonoSingleton>();
+            if(sInst == null )
+            {
+                sInst = new MonoSingleton();
+            }
+        }
 
-        return Inst;
+        return sInst;
     }
+
+    public static MonoSingleton Inst => GetInstandce();
 }
