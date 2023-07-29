@@ -32,6 +32,8 @@ public class PlayManager : MonoSingleton<PlayManager>
     INetworkController netCon;
     private void Start()
     {
+        comonRPC = new GameObject("CommonRPC").AddComponent<CommonRPCProcessor>();
+        comonRPC.transform.parent = this.transform;
         startedTimetick = DateTime.Now.Ticks;
         netCon = NetworkFactory.CreateNetworkController();
 

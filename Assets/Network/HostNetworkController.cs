@@ -18,7 +18,7 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
 
     public void SpawnItem()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     [PunRPC]
