@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/MenuScene.unity
     guid: e04de5cbe014b164fa739b75ddb797d7
   - enabled: 1
-    path: Assets/GiWon_Test/Test GameScene.unity
-    guid: 806feca81393fca44bdfce4f5d36c103
-  - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: 7fffeeb3751128a42becdc35019292ba
+  - enabled: 1
+    path: Assets/GiWon_Test/TestGameScene.unity
+    guid: a398359fe21b76048b1e975892c89ff5
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 50d55ef18e4485f4fb68bd419218f50e, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: a1560a5a0bf36d94c974c24dcba19ce6, type: 2}

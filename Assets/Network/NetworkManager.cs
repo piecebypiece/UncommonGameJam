@@ -32,7 +32,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     void Update()
     {
         StatusText.text = PhotonNetwork.NetworkClientState.ToString();
-        //waitingRoomInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "·Îºñ / " + PhotonNetwork.CountOfPlayers + "Á¢¼Ó";
+        //waitingRoomInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "ë¡œë¹„ / " + PhotonNetwork.CountOfPlayers + "ì ‘ì†";
     }
 
 
@@ -45,7 +45,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        print("¼­¹öÁ¢¼Ó¿Ï·á");
+        print("ì„œë²„ì ‘ì†ì™„ë£Œ");
         //PhotonNetwork.LocalPlayer.NickName = NickNameInput.text;
     }
 
@@ -53,13 +53,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void Disconnect() => PhotonNetwork.Disconnect();
 
-    public override void OnDisconnected(DisconnectCause cause) => print("¿¬°á²÷±è");
+    public override void OnDisconnected(DisconnectCause cause) => print("ì—°ê²°ëŠê¹€");
 
 
 
     public void JoinLobby() => PhotonNetwork.JoinLobby();
 
-    public override void OnJoinedLobby() => print("·ÎºñÁ¢¼Ó¿Ï·á");
+    public override void OnJoinedLobby() => print("ë¡œë¹„ì ‘ì†ì™„ë£Œ");
 
 
 
@@ -81,13 +81,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public void LeaveRoom() => PhotonNetwork.LeaveRoom();
 
-    public override void OnCreatedRoom() => print("¹æ¸¸µé±â¿Ï·á");
+    public override void OnCreatedRoom() => print("ë°©ë§Œë“¤ê¸°ì™„ë£Œ");
 
     public override void OnJoinedRoom()
     {
-        print("¹æÂü°¡¿Ï·á");
+        print("ë°©ì°¸ê°€ì™„ë£Œ");
         waitingRoomPanel.SetActive(true);
-        // ¸¶½ºÅÍ Å¬¶óÀÌ¾ğÆ®ÀÎÁö È®ÀÎ
+        // ë§ˆìŠ¤í„° í´ë¼ì´ì–¸íŠ¸ì¸ì§€ í™•ì¸
         if (PhotonNetwork.IsMasterClient)
         {
             startButton.gameObject.SetActive(true);
@@ -103,26 +103,28 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //ChatInput.text = "";
         for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
         //PhotonNetwork.LoadLevel("GameScene");
-        // Å×½ºÆ®¿ë
+        // í…ŒìŠ¤íŠ¸ìš©
         // PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-        // Debug.Log("ÇÃ·¹ÀÌ¾î »ı¼º");
+        // Debug.Log("í”Œë ˆì´ì–´ ìƒì„±");
     }
 
-    public override void OnCreateRoomFailed(short returnCode, string message) => print("¹æ¸¸µé±â½ÇÆĞ");
+    public override void OnCreateRoomFailed(short returnCode, string message) => print("ë°©ë§Œë“¤ê¸°ì‹¤íŒ¨");
 
-    public override void OnJoinRoomFailed(short returnCode, string message) => print("¹æÂü°¡½ÇÆĞ");
+    public override void OnJoinRoomFailed(short returnCode, string message) => print("ë°©ì°¸ê°€ì‹¤íŒ¨");
 
-    public override void OnJoinRandomFailed(short returnCode, string message) => print("¹æ·£´ıÂü°¡½ÇÆĞ");
+    public override void OnJoinRandomFailed(short returnCode, string message) => print("ë°©ëœë¤ì°¸ê°€ì‹¤íŒ¨");
+
+    #region waitingRoom
 
     public void SetReadyStatus(bool isReady)
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ ÁØºñ »óÅÂ¸¦ ¼³Á¤
+        // í”Œë ˆì´ì–´ì˜ ì¤€ë¹„ ìƒíƒœë¥¼ ì„¤ì •
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "IsReady", isReady } });
     }
 
     public bool CheckAllPlayersReady()
     {
-        // ¸ğµç ÇÃ·¹ÀÌ¾î°¡ ÁØºñ »óÅÂÀÎÁö È®ÀÎ
+        // ëª¨ë“  í”Œë ˆì´ì–´ê°€ ì¤€ë¹„ ìƒíƒœì¸ì§€ í™•ì¸
         foreach (var player in PhotonNetwork.PlayerList)
         {
             object isReady;
@@ -146,8 +148,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         //if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
         //{
-        //    // 2¸í ÀÌÇÏ ÀÏ ¶§ ´Ü¼ø ¸®ÅÏ, ÃßÈÄ ½Ã°¢ÀûÀ¸·Î Á¤º¸ Á¦°ø ÇÊ¿ä
-        //    Debug.Log("ÀÎ¿ø ºÎÁ·");
+        //    // 2ëª… ì´í•˜ ì¼ ë•Œ ë‹¨ìˆœ ë¦¬í„´, ì¶”í›„ ì‹œê°ì ìœ¼ë¡œ ì •ë³´ ì œê³µ í•„ìš”
+        //    Debug.Log("ì¸ì› ë¶€ì¡±");
         //    return;
         //}
 
@@ -158,19 +160,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
     }
 
-    #region waitingRoom
+    public void StartTest()
+    {
+        PhotonNetwork.LoadLevel("TestGameScene");
+    }
 
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         RoomRenewal();
-        //ChatRPC("<color=yellow>" + newPlayer.NickName + "´ÔÀÌ Âü°¡ÇÏ¼Ì½À´Ï´Ù</color>");
+        //ChatRPC("<color=yellow>" + newPlayer.NickName + "ë‹˜ì´ ì°¸ê°€í•˜ì…¨ìŠµë‹ˆë‹¤</color>");
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
         RoomRenewal();
-        //ChatRPC("<color=yellow>" + otherPlayer.NickName + "´ÔÀÌ ÅğÀåÇÏ¼Ì½À´Ï´Ù</color>");
+        //ChatRPC("<color=yellow>" + otherPlayer.NickName + "ë‹˜ì´ í‡´ì¥í•˜ì…¨ìŠµë‹ˆë‹¤</color>");
     }
 
     void RoomRenewal()
@@ -178,31 +183,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         ListText.text = "";
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
             ListText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
-        waitingRoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "¸í / " + PhotonNetwork.CurrentRoom.MaxPlayers + "ÃÖ´ë";
+        waitingRoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "ëª… / " + PhotonNetwork.CurrentRoom.MaxPlayers + "ìµœëŒ€";
     }
     #endregion
 
 
-    [ContextMenu("Á¤º¸")]
+    [ContextMenu("ì •ë³´")]
     void Info()
     {
         if (PhotonNetwork.InRoom)
         {
-            print("ÇöÀç ¹æ ÀÌ¸§ : " + PhotonNetwork.CurrentRoom.Name);
-            print("ÇöÀç ¹æ ÀÎ¿ø¼ö : " + PhotonNetwork.CurrentRoom.PlayerCount);
-            print("ÇöÀç ¹æ ÃÖ´ëÀÎ¿ø¼ö : " + PhotonNetwork.CurrentRoom.MaxPlayers);
+            print("í˜„ì¬ ë°© ì´ë¦„ : " + PhotonNetwork.CurrentRoom.Name);
+            print("í˜„ì¬ ë°© ì¸ì›ìˆ˜ : " + PhotonNetwork.CurrentRoom.PlayerCount);
+            print("í˜„ì¬ ë°© ìµœëŒ€ì¸ì›ìˆ˜ : " + PhotonNetwork.CurrentRoom.MaxPlayers);
 
-            string playerStr = "¹æ¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾î ¸ñ·Ï : ";
+            string playerStr = "ë°©ì— ìˆëŠ” í”Œë ˆì´ì–´ ëª©ë¡ : ";
             for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++) playerStr += PhotonNetwork.PlayerList[i].NickName + ", ";
             print(playerStr);
         }
         else
         {
-            print("Á¢¼ÓÇÑ ÀÎ¿ø ¼ö : " + PhotonNetwork.CountOfPlayers);
-            print("¹æ °³¼ö : " + PhotonNetwork.CountOfRooms);
-            print("¸ğµç ¹æ¿¡ ÀÖ´Â ÀÎ¿ø ¼ö : " + PhotonNetwork.CountOfPlayersInRooms);
-            print("·Îºñ¿¡ ÀÖ´ÂÁö? : " + PhotonNetwork.InLobby);
-            print("¿¬°áµÆ´ÂÁö? : " + PhotonNetwork.IsConnected);
+            print("ì ‘ì†í•œ ì¸ì› ìˆ˜ : " + PhotonNetwork.CountOfPlayers);
+            print("ë°© ê°œìˆ˜ : " + PhotonNetwork.CountOfRooms);
+            print("ëª¨ë“  ë°©ì— ìˆëŠ” ì¸ì› ìˆ˜ : " + PhotonNetwork.CountOfPlayersInRooms);
+            print("ë¡œë¹„ì— ìˆëŠ”ì§€? : " + PhotonNetwork.InLobby);
+            print("ì—°ê²°ëëŠ”ì§€? : " + PhotonNetwork.IsConnected);
         }
     }
 }
