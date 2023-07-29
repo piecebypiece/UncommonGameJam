@@ -13,13 +13,6 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
         throw new System.NotImplementedException();
     }
 
-    
-
-    public void SendStemp()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void SpawnItem()
     {
         

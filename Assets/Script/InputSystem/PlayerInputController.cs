@@ -90,12 +90,12 @@ public class PlayerInputController : MonoBehaviour
     }
 
     #region Player
-    private void OnMove(InputAction.CallbackContext obj)
-    {
-        var value = obj.ReadValue<Vector2>();
-        var direction = new Vector3(value.x, 0, value.y);
-        _player.SetDirection(direction);
-    }
+    //private void OnMove(InputAction.CallbackContext obj)
+    //{
+    //    var value = obj.ReadValue<Vector2>();
+    //    var direction = new Vector3(value.x, 0, value.y);
+    //    _player.SetDirection(direction);
+    //}
 
     private void OnMoveStop(InputAction.CallbackContext obj)
     {
