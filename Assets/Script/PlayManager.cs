@@ -6,9 +6,14 @@ using UniRx;
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
 {
-    public long startedTimetick;
+    [Header("*EndCondition")]
     public long GameEndTime;
+    public float GameEndDist;
+
+    [Space(10)]
+    private long startedTimetick;
     private long nowTimetick;
+    
     public List<Transform> playerSpwanPointList;
     public List<Transform> itemSpwanPointList;
 
@@ -56,17 +61,28 @@ public class PlayManager : MonoSingleton<PlayManager>
         }
     }
 
-    private void PlayerDistance()
+    /*
+    private bool PlayerDistance()
     {
         for(int i = 0; i < playerConList.Count - 1; i++)
         {
-            for(int j = 0; j < playerConList.Count - 1; j++)
+            for(int j = i + 1; j < playerConList.Count - 1; j++)
             {
                 float dist = Vector3.Distance(playerConList[i].transform.position, playerConList[j + 1].transform.position);
+                if(dist >= GameEndDist)
+                {
+                    return false;
+                }
             }          
         }
+        return true;
     }
+    */
 
+    public void PlayerDistance()
+    {
+
+    }
 
     private void GameOver()
     {
