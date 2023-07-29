@@ -18,8 +18,60 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f52c2406da3cc9f4fab1c9bdf1ebb6ac, type: 2}
   - {fileID: 11400000, guid: e83abc661ff6d9449bc452a982117f24, type: 2}
   - {fileID: 11400000, guid: 2d9d8e4344f7ede41b92f3cdd6440a94, type: 2}
-  m_Extensions: []
+  m_Extensions:
+  - rid: 1451636396346834961
   m_Group: String Table
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1451636396346834961
+      type: {class: CsvExtension, ns: UnityEditor.Localization.Plugins.CSV, asm: Unity.Localization.Editor}
+      data:
+        m_Collection: {fileID: 11400000}
+        m_ColumnsList:
+        - rid: 1451636396346834962
+        - rid: 1451636396346834963
+        - rid: 1451636396346834965
+        - rid: 1451636396346834966
+        - rid: 1451636396346834964
+        m_ConnectedFile: C:/Users/YUN0/Downloads/wordslist_ver1.csv
+    - rid: 1451636396346834962
+      type: {class: KeyIdColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_IncludeId: 0
+        m_IncludeSharedComments: 0
+        m_KeyFieldName: Key
+        m_IdFieldName: Id
+        m_CommentFieldName: Shared Comments
+    - rid: 1451636396346834963
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: en-US
+        m_FieldName: en-US
+        m_CommentFieldName: English (United States)(en-US) Comments
+        m_IncludeComments: 0
+    - rid: 1451636396346834964
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: Game
+        m_FieldName: Game
+        m_CommentFieldName: Custom(Game) Comments
+        m_IncludeComments: 0
+    - rid: 1451636396346834965
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: ja
+        m_FieldName: ja
+        m_CommentFieldName: Japanese(ja) Comments
+        m_IncludeComments: 0
+    - rid: 1451636396346834966
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: ko
+        m_FieldName: ko
+        m_CommentFieldName: Korean(ko) Comments
+        m_IncludeComments: 0
