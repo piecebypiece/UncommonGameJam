@@ -1,16 +1,18 @@
-using Photon.Pun;
-using System.Collections;
+
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
 {
-    [SerializeField] List<Transform> playerSpwanPointList;
-    [SerializeField] List<Transform> itemSpwanPointList;
+    public long startedTimetick;
+    public List<Transform> playerSpwanPointList;
+    public List<Transform> itemSpwanPointList;
 
+    public List<PlayerController> playerConList;
     public Dictionary<string, PlayerGameData> userDataDict;
+    public CommonRPCProcessor comonRPC;
 
     public INetworkController NetController => netCon;
 

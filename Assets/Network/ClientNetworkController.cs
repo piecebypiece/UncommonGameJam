@@ -1,5 +1,6 @@
 using Photon.Pun;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -23,6 +24,6 @@ public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkContro
 
     public void SpawnPlayer()
     {
-        throw new System.NotImplementedException();
+
     }
 }
