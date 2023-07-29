@@ -7,7 +7,7 @@ public class MoveCore : MonoBehaviour, IMoveable
     [SerializeField] protected float speed = 5;
     [SerializeField] public Transform mainCamera;
 
-    protected Vector3 direction;
+    protected Vector3 direction = Vector3.forward;
     private Vector3 dir; // 카메라 좌표계를 받은 벡터
 
 

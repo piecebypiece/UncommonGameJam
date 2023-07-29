@@ -48,16 +48,16 @@ public class PlayerInputController : MonoBehaviour
     private void SetPlayerInput()
     {
         var playerInput = _input.actions.FindActionMap("Player");
-        playerInput["Move"].performed += OnMove;
-        playerInput["Move"].canceled += OnMoveStop;
+        // playerInput["Move"].performed += OnMove;
+        // playerInput["Move"].canceled += OnMoveStop;
         playerInput["Dash"].performed += OnDash;
         playerInput["Dash"].canceled += OnDashStop;
     }
 
     private void OnDisable()
     {
-        _input.actions["Move"].performed -= OnMove;
-        _input.actions["Move"].canceled -= OnMoveStop;
+        // _input.actions["Move"].performed -= OnMove;
+        // _input.actions["Move"].canceled -= OnMoveStop;
         _input.actions["Dash"].performed -= OnDash;
         _input.actions["Dash"].canceled -= OnDashStop;
     }
