@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
-<<<<<<< HEAD
-<<<<<<< HEAD
 using Photon.Pun;
-=======
-using UnityEngine.UI;
 using DG.Tweening;
->>>>>>> bd63953 (레이더 제작중)
-=======
-using UnityEngine.UI;
-using DG.Tweening;
->>>>>>> bd63953 (레이더 제작중)
+
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
@@ -55,17 +47,17 @@ public class PlayManager : MonoSingleton<PlayManager>
     }
     INetworkController netCon;
 
-    private void Awake()
-    {
-        RaderDist
-            .DistinctUntilChanged()
-            .Where(x => x == true)
-            .Subscribe(x =>
-            {
-                dangerImage.SetActive(true);
-                dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
-            });
-    }
+    //private void Awake()
+    //{
+    //    RaderDist
+    //        .DistinctUntilChanged()
+    //        .Where(x => x == true)
+    //        .Subscribe(x =>
+    //        {
+    //            dangerImage.SetActive(true);
+    //            dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
+    //        });
+    //}
 
     private void Start()
     {
