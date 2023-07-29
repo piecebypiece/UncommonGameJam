@@ -103,7 +103,7 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     {
         StempInfo newInfo = new StempInfo();
         newInfo.kind = StempInfo.Kind.Word;
-        newInfo.key = key1 + " " + key2;
+        newInfo.key = GameLocalizeManager.Inst.Localize(key1) + " " + GameLocalizeManager.Inst.Localize(key2);
         newInfo.UserID = userID;
 
         PlayManager.Inst.UpdateStempInfo(newInfo);
@@ -113,14 +113,4 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     {
         photonView.RPC("CreateNewStempInfo", RpcTarget.All, key1, key2, userID);
     }
-
-    //public void CreateNewStempInfo2()
-    //{
-    //    StempInfo newInfo = new StempInfo();
-    //    newInfo.kind = StempInfo.Kind.Word;
-    //    newInfo.key = "abcd";
-    //    newInfo.UserID = "Player1";
-
-    //    PlayManager.Inst.UpdateStempInfo(newInfo);
-    //}
 }
