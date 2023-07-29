@@ -50,7 +50,7 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
               // 여긴 고유명사   
             }
             string key = keys[Random.Range(start, end)];
-            _ = PhotonNetwork.Instantiate("Player", transform.position, transform.localRotation, data: new object[] {key});
+            _ = PhotonNetwork.Instantiate("Item", transform.position, transform.localRotation, data: new object[] {key});
         }
     }
 
