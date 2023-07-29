@@ -33694,7 +33694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1127190704
 Transform:
   m_ObjectHideFlags: 0
@@ -62538,7 +62538,7 @@ MonoBehaviour:
   - {fileID: 591147347}
   - {fileID: 813409962}
   - {fileID: 50906648}
-  villageCenter: {fileID: 0}
+  villageCenter: {fileID: 2109594915}
   centerDisGradeList:
   - 150
   - 300
@@ -62560,7 +62560,7 @@ Transform:
   m_GameObject: {fileID: 2109594913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -218, y: -500, z: 380}
+  m_LocalPosition: {x: -218, y: -509.2, z: 380}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
