@@ -11,6 +11,8 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     private bool isChack = false;
     private PlayManager PlayManager;
 
+    public List<Material> Materials;
+
     protected override void Awake()
     {
         TryGetComponent(out rigid);
@@ -50,6 +52,8 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     {
         var pm = PlayManager.Inst;
         pm.playerConList.Add(this);
+        int materIndex = pm.playerConList.Count - 1;
+        this.GetComponent<MeshRenderer>().material = Materials[materIndex];
 
         if (pm.playerConList.Count == PhotonNetwork.CurrentRoom.PlayerCount)
         {

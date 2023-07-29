@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class PlayerRPC : MonoBehaviourPunCallbacks
 {
@@ -84,17 +85,18 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         Item item = other.GetComponent<Item>();
         if (item != null)
         {
-            photonView.RPC("AcquireItem", RpcTarget.All, item);
+            photonView.RPC("AcquireItem", RpcTarget.All, item.photonView.ViewID);
             PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList(item.key);
         }
     }
 
     [PunRPC]
-    public void AcquireItem(Item item)
+    public void AcquireItem(int viewID)
     {
-        if (item.photonView != null)
+        PhotonView itemPhotonView = PhotonView.Find(viewID);
+        if (itemPhotonView != null)
         {
-            Destroy(item.photonView.gameObject);
+            Destroy(itemPhotonView.gameObject);
         }
     }
 
