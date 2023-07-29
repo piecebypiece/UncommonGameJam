@@ -6,13 +6,14 @@ using UniRx;
 public class MoveCore : MonoBehaviour, IMoveable
 {
     [SerializeField] protected float speed = 5;
+    [SerializeField] float turnSpeed;
     [SerializeField] public GameObject mainCamera;
     [SerializeField] float turnTime;
     [SerializeField] public BoolReactiveProperty isTurn = new BoolReactiveProperty();
 
     public Vector3 direction; 
     private Vector3 dir; // 카메라 좌표계를 받은 벡터
-
+    private Vector3 playerLookVector;
 
     public static float normalSpeed = 5f;
     public static float dashSpeed = 8f;
@@ -24,13 +25,16 @@ public class MoveCore : MonoBehaviour, IMoveable
 
     protected virtual void Start()
     {
-        direction = Vector3.forward;
+        direction = Vector3.back;
         mainCamera = Camera.main.gameObject;
     }
 
     protected virtual void FixedUpdate()
     {
         Move();
+        Vector3 pointToLook = mainCamera.transform.position;
+        playerLookVector = new Vector3(pointToLook.x, transform.position.y, pointToLook.z);
+        transform.LookAt(playerLookVector);
     }
 
     public virtual void Move()
@@ -39,7 +43,8 @@ public class MoveCore : MonoBehaviour, IMoveable
         {
             transform.Translate(dir * speed * Time.deltaTime);
         }
-
+        dir = direction;
+        /*
         if (isTurn.Value)
         {
             this.speed = 12f;
@@ -51,6 +56,7 @@ public class MoveCore : MonoBehaviour, IMoveable
             dir = direction.z * mainCamera.transform.forward.normalized;
             dir += direction.x * mainCamera.transform.right.normalized;
         }
+        */
     }
 
     public virtual void SetDirection(Vector3 direction)
@@ -63,9 +69,9 @@ public class MoveCore : MonoBehaviour, IMoveable
         this.speed = val;
     }
 
-    public virtual void Turn()
+    public void Turn(float val)
     {
-
+        // transform.Rotate(0f, -val * turnSpeed, 0f, Space.World);
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
