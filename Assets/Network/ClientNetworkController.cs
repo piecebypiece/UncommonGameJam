@@ -19,7 +19,7 @@ public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkContro
 
     public void SpawnItem()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void SpawnPlayer()
