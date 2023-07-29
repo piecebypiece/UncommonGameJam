@@ -26,6 +26,10 @@ MonoBehaviour:
     m_Localized: kor
     m_Metadata:
       m_Items: []
+  - m_Id: 430474391277568
+    m_Localized: kor3
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

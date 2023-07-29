@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerRPC : MonoBehaviourPunCallbacks
 {
+    [SerializeField]
+    private Text[] buttonTexts;
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
