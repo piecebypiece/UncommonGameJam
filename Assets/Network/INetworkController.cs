@@ -11,6 +11,8 @@ public interface INetworkController
 
     public void SpawnPlayer();
 
+    public void CompleteSpwan();
+
     public void SpawnItem();
 
     public void SendStemp();

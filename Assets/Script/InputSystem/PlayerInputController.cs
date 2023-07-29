@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using Cinemachine;
 using UniRx;
+using Photon.Pun.Demo.PunBasics;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -29,37 +30,31 @@ public class PlayerInputController : MonoBehaviour
     private void Awake()
     {
         TryGetComponent(out _input);
-
-        PlayerGenerator();
-
-        
-        myPlayer.isTurn
-            .Where(_ => _ == true)
-            .Subscribe(x =>
-            {
-                StartCoroutine(InputStop());
-            });
-        
+        mainCamera = Camera.main.transform;
     }
+
 
     private void Start()
     {
-        // PlayerGenerator();
+        PlayManager.Inst.OnCompleteSpawn += SetPlayerControllr;
     }
 
-    private void PlayerGenerator()
+    private void SetPlayerControllr()
     {
-        GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-        player.TryGetComponent(out PlayerController playerController);
-        if(playerController.PV.IsMine)
-        {
-            myPlayer = playerController;
-            myPlayer.TryGetComponent(out _player);
-            myPlayer.mainCamera = mainCamera.gameObject;
-            followCamera.Follow = player.transform;
-            followCamera.LookAt = player.transform;
-            compass.followCamera = followCamera.gameObject;
-        }
+        var playerController = PlayManager.Inst.GetMineController();
+
+        myPlayer = playerController;
+        myPlayer.TryGetComponent(out _player);
+        myPlayer.mainCamera = mainCamera.gameObject;
+        followCamera.Follow = playerController.transform;
+        followCamera.LookAt = playerController.transform;
+        compass.followCamera = followCamera.gameObject;
+        myPlayer.isTurn
+             .Where(_ => _ == true)
+             .Subscribe(x =>
+             {
+                 StartCoroutine(InputStop());
+             });
     }
 
     private IEnumerator InputStop()

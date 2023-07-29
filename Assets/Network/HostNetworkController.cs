@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkController
 {
+
     public void OnItem()
     {
         throw new System.NotImplementedException();
     }
+
+    
 
     public void SendStemp()
     {
@@ -18,7 +21,7 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
 
     public void SpawnItem()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     [PunRPC]
@@ -33,23 +36,25 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
             indexs.Add(i);
         }
 
-        List<PlayerController> pcList = new(playerCnt);
         for (int i = 0; i < playerCnt; i++)
         {
             int index = Random.Range(0, indexs.Count);
             var transform = spwanPointList[indexs[i]];
             GameObject player = PhotonNetwork.Instantiate("Player", transform.position, transform.localRotation);
             player.name = "player" + i + 1;
-            pcList.Add(player.GetComponent<PlayerController>());
         }
-
+    }
+    public void CompleteSpwan()
+    {
+        int playerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
         var players = PhotonNetwork.PlayerListOthers;
+        var pcList = PlayManager.Inst.playerConList;
 
         for (int i = 1; i < playerCnt; i++)
         {
             pcList[i].PV.TransferOwnership(players[i]);
         }
 
-        PlayManager.Inst.comonRPC.AddPlayers(pcList);
+        PlayManager.Inst.OnCompleteSpawn?.Invoke();
     }
 }

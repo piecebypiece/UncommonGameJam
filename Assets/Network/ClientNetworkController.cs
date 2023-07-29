@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkController
 {
+    public void CompleteSpwan()
+    {
+        
+    }
+
     [PunRPC]
     public void OnItem()
     {
@@ -19,7 +24,7 @@ public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkContro
 
     public void SpawnItem()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void SpawnPlayer()

@@ -1,12 +1,19 @@
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
 {
-    public long startedTimetick;
+    [Header("*EndCondition")]
+    public long GameEndTime;
+    public float GameEndDist;
+
+    [Space(10)]
+    private long startedTimetick;
+    private long nowTimetick;
+    
     public List<Transform> playerSpwanPointList;
     public List<Transform> itemSpwanPointList;
 
@@ -16,6 +23,7 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     public List<StempInfo> stempInfoList = new List<StempInfo>();
     public Action<List<StempInfo>> OnStempInfoUpdated;
+    public Action OnCompleteSpawn;
 
     public INetworkController NetController => netCon;
 
@@ -30,6 +38,8 @@ public class PlayManager : MonoSingleton<PlayManager>
     INetworkController netCon;
     private void Start()
     {
+        comonRPC = new GameObject("CommonRPC").AddComponent<CommonRPCProcessor>();
+        comonRPC.transform.parent = this.transform;
         startedTimetick = DateTime.Now.Ticks;
         netCon = NetworkFactory.CreateNetworkController();
 
@@ -39,7 +49,49 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     private void Update()
     {
-        
+        Timer();
+    }
+
+    private void Timer()
+    {
+        nowTimetick = DateTime.Now.Ticks;
+        if (nowTimetick - startedTimetick >= GameEndTime)
+        {
+            GameOver();
+        }
+    }
+
+    /*
+    private bool PlayerDistance()
+    {
+        for(int i = 0; i < playerConList.Count - 1; i++)
+        {
+            for(int j = i + 1; j < playerConList.Count - 1; j++)
+            {
+                float dist = Vector3.Distance(playerConList[i].transform.position, playerConList[j + 1].transform.position);
+                if(dist >= GameEndDist)
+                {
+                    return false;
+                }
+            }          
+        }
+        return true;
+    }
+    */
+
+    public void PlayerDistance()
+    {
+
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("GameOver");
+    }
+
+    private void GameWin()
+    {
+
     }
 
     public void UpdateStempInfo(StempInfo newInfo)
@@ -48,5 +100,10 @@ public class PlayManager : MonoSingleton<PlayManager>
 
         Debug.Log("OnStempInfoUpdated event triggered");
         OnStempInfoUpdated?.Invoke(stempInfoList);
+    }
+
+    public PlayerController GetMineController()
+    {
+        return playerConList.Find(_ => _.PV.IsMine);
     }
 }

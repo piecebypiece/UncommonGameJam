@@ -11,7 +11,7 @@ public class MoveCore : MonoBehaviour, IMoveable
     [SerializeField] public BoolReactiveProperty isTurn = new BoolReactiveProperty();
 
     public Vector3 direction; 
-    private Vector3 dir; // Ä«¸Ş¶ó ÁÂÇ¥°è¸¦ ¹ŞÀº º¤ÅÍ
+    private Vector3 dir; // ì¹´ë©”ë¼ ì¢Œí‘œê³„ë¥¼ ë°›ì€ ë²¡í„°
 
 
     public static float normalSpeed = 5f;
@@ -25,6 +25,7 @@ public class MoveCore : MonoBehaviour, IMoveable
     protected virtual void Start()
     {
         direction = Vector3.forward;
+        mainCamera = Camera.main.gameObject;
     }
 
     protected virtual void FixedUpdate()
