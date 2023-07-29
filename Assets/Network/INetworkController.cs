@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 
@@ -6,12 +6,11 @@ using UnityEngine;
 // 구현상 필요없는 쪽이면 함수가 비어있을 수도 있음.
 public interface INetworkController
 {
-
     public void OnItem();
 
-    public void GameStart();
+    public void SpawnPlayer();
 
-    public void GameEnd();
+    public void SpawnItem();
 
-    public void GamePause();
+    public void SendStemp();
 }
