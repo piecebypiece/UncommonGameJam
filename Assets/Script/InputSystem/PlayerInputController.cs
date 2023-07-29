@@ -63,6 +63,7 @@ public class PlayerInputController : MonoBehaviour
         yield return new WaitForSeconds(turnTime);
 
         myPlayer.direction = Vector3.forward;
+        myPlayer.isTurn.Value = false;
         yield break;
     }
 

@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   mainCamera: {fileID: 0}
-  turnTime: 0
+  turnTime: 0.5
   isTurn:
     value: 0
   direction: {x: 0, y: 0, z: 0}
