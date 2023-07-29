@@ -26,7 +26,7 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
             indexs.Add(i);
         }
 
-        for (int i = 0; i < pm.initSpawnItemCount; i++)
+        for (int i = 0; i < itemSpwanList.Count; i++)
         {
             int index = Random.Range(0, indexs.Count);
             var transform = itemSpwanList[indexs[index]];
@@ -43,14 +43,17 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
             // 여기서 일반 명사
             if(Random.value > per)
             {
-
+                start = UCDefine.EndOfProperNonuPer;
+                end = keys.Count;
             }
             else
             {
-              // 여긴 고유명사   
+                // 여긴 고유명사   
+                start = 0;
+                end = UCDefine.EndOfProperNonuPer - 1;
             }
             string key = keys[Random.Range(start, end)];
-            _ = PhotonNetwork.Instantiate("Player", transform.position, transform.localRotation, data: new object[] {key});
+            _ = PhotonNetwork.Instantiate("Item", transform.position, transform.localRotation, data: new object[] {key});
         }
     }
 
