@@ -8,13 +8,13 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            RequestCreateNewStempInfo("hello", PhotonNetwork.LocalPlayer.NickName);
+            RequestCreateNewStempInfo("go", "right", PhotonNetwork.LocalPlayer.NickName);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            RequestCreateNewStempInfo("left", PhotonNetwork.LocalPlayer.NickName);
+            RequestCreateNewStempInfo("go", "left", PhotonNetwork.LocalPlayer.NickName);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -42,19 +42,19 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void CreateNewStempInfo(string key, string userID)
+    public void CreateNewStempInfo(string key1, string key2, string userID)
     {
         StempInfo newInfo = new StempInfo();
         newInfo.kind = StempInfo.Kind.Word;
-        newInfo.key = key;
+        newInfo.key = key1 + key2;
         newInfo.UserID = userID;
 
         PlayManager.Inst.UpdateStempInfo(newInfo);
     }
 
-    public void RequestCreateNewStempInfo(string key, string userID)
+    public void RequestCreateNewStempInfo(string key1, string key2, string userID)
     {
-        photonView.RPC("CreateNewStempInfo", RpcTarget.All, key, userID);
+        photonView.RPC("CreateNewStempInfo", RpcTarget.All, key1, key2, userID);
     }
 
     //public void CreateNewStempInfo2()
