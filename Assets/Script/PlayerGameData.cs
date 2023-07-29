@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerGameData
 {
+    private int maxKeyCount = 8;
     public int wordAddIndex = 0;
     public List<string> wordKeyList;
-    public List<string> localizeWordKeyList;
+    public List<string> unLocalizeWordKeyList;
     public PlayerController playerCon;
+
+    public Action<List<string>> OnButtonInfoUpdated;
 
     public void AddWordList(string key)
     {
-        if(wordAddIndex == wordKeyList.Count)
+        if(wordAddIndex == maxKeyCount)
         {
             wordAddIndex = 0;
         }
@@ -17,13 +22,34 @@ public class PlayerGameData
         wordAddIndex++;
     }
 
+    public string ButtonText(int index)
+    {
+        if(index < wordKeyList.Count)
+        {
+            return wordKeyList[index];
+        }
+        return null;
+    }
+
+    public void UpdateButtonInfo()
+    {
+        OnButtonInfoUpdated?.Invoke(wordKeyList);
+    }
+
+    //[ContextMenu("Add Key")]
+    //public void AddKey()
+    //{
+    //    string key = "test2";
+    //    AddWordList(key);
+    //}
+
 
     // 플레이어가 word의 키값을 번역할 수 있으면 번역되고 아니면 원문반환
     public string LocalizeGameWordKey(string key)
     {
-        if (localizeWordKeyList.Contains(key))
-            return GameLocalizeManager.Inst.Localize(key);
+        if (unLocalizeWordKeyList.Contains(key))
+            return GameLocalizeManager.Inst.Unlocalize(key); 
         else
-            return GameLocalizeManager.Inst.Unlocalize(key);
+            return GameLocalizeManager.Inst.Localize(key);
     }
 }

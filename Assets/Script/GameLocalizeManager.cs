@@ -22,9 +22,9 @@ public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>
 
     }
 
-    public string Unlocalize(string key) => gameStringTable[key].LocalizedValue;
+    public string Unlocalize(string key) => systemStringTable[key].LocalizedValue;
 
-    public string Localize(string key) => gameStringTable[key].LocalizedValue;
+    public string Localize(string key) => systemStringTable[key].LocalizedValue;
 
     [ContextMenu("Test")]
     public void TestSystemString()
@@ -41,6 +41,9 @@ public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>
                 string key = entry.Key;
 
                 Debug.Log($"Key: {key}");
+
+                string result = Localize(key);
+                Debug.Log(result);
             }
         }
     }

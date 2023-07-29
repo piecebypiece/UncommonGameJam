@@ -378,6 +378,7 @@ GameObject:
   m_Component:
   - component: {fileID: 442641507}
   - component: {fileID: 442641508}
+  - component: {fileID: 442641509}
   m_Layer: 5
   m_Name: ButtonGroup
   m_TagString: Untagged
@@ -436,6 +437,27 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 1
   m_ConstraintCount: 4
+--- !u!114 &442641509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442641506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de6ff8135a2ca1546a2557f62a5b6fc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonList:
+  - {fileID: 1535609403}
+  - {fileID: 1153634078}
+  - {fileID: 540780550}
+  - {fileID: 770541876}
+  - {fileID: 1604853373}
+  - {fileID: 1239789362}
+  - {fileID: 732225526}
+  - {fileID: 179245849}
 --- !u!1 &540780548
 GameObject:
   m_ObjectHideFlags: 0
