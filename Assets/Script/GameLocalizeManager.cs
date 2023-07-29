@@ -2,6 +2,7 @@ using UnityEditor.Localization;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
+using UnityEngine.Localization.Components;
 
 // 번역되지 않아야하는 게임단어를 고정적으로 반환해주는 클래스.
 public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>
@@ -57,5 +58,15 @@ public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>
             if(entry.Key == itemKey)
                 Debug.Log(Localize(itemKey));
         }
+    }
+
+    [ContextMenu("Localize")]
+    public void LocalizeTextString()
+    {
+        string tableName = "GameWord";
+        string itemId = "testb";
+        Debug.Log(GetComponent<LocalizeStringEvent>().StringReference.GetLocalizedString(tableName, itemId));
+
+        //.SetReference(tableName, itemValue.itemName);
     }
 }
