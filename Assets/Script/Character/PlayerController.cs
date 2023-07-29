@@ -8,15 +8,15 @@ public class PlayerController : MoveCore
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] public PhotonView PV;
     [SerializeField] GameObject inputManager;
-    [SerializeField] PlayerInputController PlayerInputController;
 
     protected override void Awake()
     {
         TryGetComponent(out rigid);
     }
 
-    public void Start()
+    protected override void Start()
     {
+        base.Start();
         DontDestroyOnLoad(gameObject);
 
         if(PV.IsMine)
@@ -28,5 +28,24 @@ public class PlayerController : MoveCore
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+    public override void Turn()
+    {
+        base.Turn();
+        if(isTurn.Value)
+        {
+            isTurn.Value = false;
+        }
+    }
+
+    protected override void OnCollisionEnter(Collision collision)
+    {
+        base.OnCollisionEnter(collision);
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            isTurn.Value = true;
+            Turn();
+        }
     }
 }

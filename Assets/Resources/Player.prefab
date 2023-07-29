@@ -151,10 +151,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   mainCamera: {fileID: 0}
+  turnTime: 0
+  isTurn:
+    value: 0
+  direction: {x: 0, y: 0, z: 0}
   rigid: {fileID: 7492410094266493947}
   PV: {fileID: 3021273256153915024}
   inputManager: {fileID: 0}
-  PlayerInputController: {fileID: 0}
 --- !u!114 &3021273256153915024
 MonoBehaviour:
   m_ObjectHideFlags: 0

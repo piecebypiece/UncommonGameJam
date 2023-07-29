@@ -383,8 +383,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _input: {fileID: 425736074}
   moveCore: {fileID: 0}
+  myPlayer: {fileID: 0}
   mainCamera: {fileID: 839602400}
   followCamera: {fileID: 1620852863}
+  turnTime: 0.5
+  inputProcider: {fileID: 1620852865}
+  moveReference: {fileID: -3421692454612131498, guid: 8febd54ed725bd244809c9eee2524213, type: 3}
 --- !u!1 &534672761
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +403,7 @@ GameObject:
   - component: {fileID: 534672763}
   m_Layer: 0
   m_Name: Cube (3)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -504,7 +508,7 @@ GameObject:
   - component: {fileID: 634320052}
   m_Layer: 0
   m_Name: Cube (2)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -640,7 +644,7 @@ Camera:
   m_ShutterSpeed: 0.005
   m_Aperture: 16
   m_FocusDistance: 10
-  m_FocalLength: 0.77
+  m_FocalLength: 1.35
   m_BladeCount: 5
   m_Curvature: {x: 2, y: 11}
   m_BarrelClipping: 0.25
@@ -655,7 +659,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 65.995415
+  field of view: 40.64627
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -682,7 +686,7 @@ Transform:
   m_GameObject: {fileID: 839602397}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.4935064, z: -10}
+  m_LocalPosition: {x: 0, y: 4.703704, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -842,7 +846,7 @@ GameObject:
   - component: {fileID: 1292354219}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -947,7 +951,7 @@ GameObject:
   - component: {fileID: 1445951530}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1171,7 +1175,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 65.995415
+    FieldOfView: 40.64627
     OrthographicSize: 5
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -1198,7 +1202,7 @@ Transform:
   m_GameObject: {fileID: 1620852862}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.4935064, z: -10}
+  m_LocalPosition: {x: 0, y: 4.703704, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1235,7 +1239,7 @@ GameObject:
   - component: {fileID: 1776084297}
   m_Layer: 0
   m_Name: Cube (4)
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
