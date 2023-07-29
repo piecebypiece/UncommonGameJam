@@ -18,6 +18,7 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     public List<StempInfo> stempInfoList = new List<StempInfo>();
     public Action<List<StempInfo>> OnStempInfoUpdated;
+    public Action OnCompleteSpawn;
 
     public INetworkController NetController => netCon;
 
@@ -39,6 +40,7 @@ public class PlayManager : MonoSingleton<PlayManager>
 
         netCon.SpawnPlayer();
         netCon.SpawnItem();
+        OnCompleteSpawn?.Invoke();
     }
 
     private void Update()
@@ -82,5 +84,10 @@ public class PlayManager : MonoSingleton<PlayManager>
         stempInfoList.Add(newInfo);
 
         OnStempInfoUpdated?.Invoke(stempInfoList);
+    }
+
+    public PlayerController GetMineController()
+    {
+        return playerConList.Find(_ => _.PV.IsMine);
     }
 }
