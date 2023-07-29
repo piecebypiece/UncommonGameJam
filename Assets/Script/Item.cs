@@ -14,6 +14,13 @@ public class Item : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         object[] instantiationData = info.photonView.InstantiationData;
         key = (string)instantiationData[0];
 
-        GameLocalizeManager.Inst.Unlocalize(key);
+        text.text = GameLocalizeManager.Inst.Unlocalize(key);
+    }
+
+    public float speed = 120f;
+    
+    public void Update()
+    {
+        transform.Rotate(0, speed * Time.deltaTime, 0);
     }
 }
