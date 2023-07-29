@@ -9,6 +9,7 @@ public class UIStemp : MonoBehaviour
     [SerializeField] private StempInfo info;
     [SerializeField] private Text text;
     [SerializeField] private Image image;
+    //[SerializeField] private Text showText;
 
     public void SetInfo(StempInfo info)
     {
@@ -30,6 +31,7 @@ public class UIStemp : MonoBehaviour
     void SetText()
     {
         text.text = info.key;
+        //showText.text = text.text;
     }
 
     void SetEmoji()

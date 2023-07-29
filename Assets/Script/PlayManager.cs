@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
@@ -45,6 +46,8 @@ public class PlayManager : MonoSingleton<PlayManager>
 
         netCon.SpawnPlayer();
         netCon.SpawnItem();
+
+        SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
 
     private void Update()
@@ -55,33 +58,40 @@ public class PlayManager : MonoSingleton<PlayManager>
     private void Timer()
     {
         nowTimetick = DateTime.Now.Ticks;
+        var tick = TimeSpan.FromSeconds(GameEndTime).Ticks;
         if (nowTimetick - startedTimetick >= GameEndTime)
         {
             GameOver();
         }
     }
 
-    /*
-    private bool PlayerDistance()
-    {
-        for(int i = 0; i < playerConList.Count - 1; i++)
-        {
-            for(int j = i + 1; j < playerConList.Count - 1; j++)
-            {
-                float dist = Vector3.Distance(playerConList[i].transform.position, playerConList[j + 1].transform.position);
-                if(dist >= GameEndDist)
-                {
-                    return false;
-                }
-            }          
-        }
-        return true;
-    }
-    */
-
     public void PlayerDistance()
     {
-
+        int MaxCount = 0;
+        int count = 0;
+        if (playerConList.Count > 2)
+        {
+            for (int i = 1; i <= playerConList.Count - 1; i++)
+            {
+                for (int j = i + 1; j <= playerConList.Count - 1; j++)
+                {
+                    MaxCount++;
+                    float dist = Vector3.Distance(playerConList[i].transform.position, playerConList[j].transform.position);
+                    if (dist >= GameEndDist)
+                    {
+                        count++;
+                    }
+                }
+            }
+            if(MaxCount == count)
+            {
+                GameWin();
+            }
+        }
+        else
+        {
+            GameWin();
+        }
     }
 
     private void GameOver()
@@ -91,7 +101,7 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     private void GameWin()
     {
-
+        Debug.Log("GameWin");
     }
 
     public void UpdateStempInfo(StempInfo newInfo)

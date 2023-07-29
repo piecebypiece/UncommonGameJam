@@ -8,13 +8,13 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
 {
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            CreateNewStempInfo();
+            RequestCreateNewStempInfo("go", "right", PhotonNetwork.LocalPlayer.NickName);
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            CreateNewStempInfo2();
+            RequestCreateNewStempInfo("go", "left", PhotonNetwork.LocalPlayer.NickName);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -41,25 +41,29 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
 
     }
 
-    public void CreateNewStempInfo()
+    [PunRPC]
+    public void CreateNewStempInfo(string key1, string key2, string userID)
     {
         StempInfo newInfo = new StempInfo();
         newInfo.kind = StempInfo.Kind.Word;
-        newInfo.key = "Hello";
-        newInfo.UserID = "Player1";
+        newInfo.key = key1 + key2;
+        newInfo.UserID = userID;
 
         PlayManager.Inst.UpdateStempInfo(newInfo);
-        //photonView.RPC("CreateNewStempInfoRPC", RpcTarget.All);
     }
 
-    public void CreateNewStempInfo2()
+    public void RequestCreateNewStempInfo(string key1, string key2, string userID)
     {
-        StempInfo newInfo = new StempInfo();
-        newInfo.kind = StempInfo.Kind.Word;
-        newInfo.key = "abcd";
-        newInfo.UserID = "Player1";
-
-        PlayManager.Inst.UpdateStempInfo(newInfo);
-        //photonView.RPC("CreateNewStempInfoRPC", RpcTarget.All);
+        photonView.RPC("CreateNewStempInfo", RpcTarget.All, key1, key2, userID);
     }
+
+    //public void CreateNewStempInfo2()
+    //{
+    //    StempInfo newInfo = new StempInfo();
+    //    newInfo.kind = StempInfo.Kind.Word;
+    //    newInfo.key = "abcd";
+    //    newInfo.UserID = "Player1";
+
+    //    PlayManager.Inst.UpdateStempInfo(newInfo);
+    //}
 }
