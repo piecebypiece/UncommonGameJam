@@ -23,6 +23,9 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] CinemachineInputProvider inputProcider;
     [SerializeField] InputActionReference moveReference;
 
+    [Header("*UI")]
+    [SerializeField] Compass compass;
+
     private void Awake()
     {
         TryGetComponent(out _input);
@@ -55,6 +58,7 @@ public class PlayerInputController : MonoBehaviour
             myPlayer.mainCamera = mainCamera.gameObject;
             followCamera.Follow = player.transform;
             followCamera.LookAt = player.transform;
+            compass.followCamera = followCamera.gameObject;
         }
     }
 
