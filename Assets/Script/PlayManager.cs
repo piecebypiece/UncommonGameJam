@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
@@ -17,6 +18,10 @@ public class PlayManager : MonoSingleton<PlayManager>
     
     public List<Transform> playerSpwanPointList;
     public List<Transform> itemSpwanPointList;
+    public Transform villageCenter;                 // 마을의 중앙값 문자 아이템 생성시 사용한다.
+    public List<float> centerDisGradeList;
+    public List<float> centerWeightProperNonuPer;   // 마을 단계별
+    public int initSpawnItemCount;
 
     public List<PlayerController> playerConList;
     public Dictionary<string, PlayerGameData> userDataDict;
@@ -42,6 +47,15 @@ public class PlayManager : MonoSingleton<PlayManager>
         comonRPC = new GameObject("CommonRPC").AddComponent<CommonRPCProcessor>();
         comonRPC.transform.parent = this.transform;
         startedTimetick = DateTime.Now.Ticks;
+
+        var userList = PhotonNetwork.PlayerList;
+        userDataDict = new(userList.Length);
+        for (int i = 0; i < userList.Length; i++)
+        {
+            var u = userList[i];
+            userDataDict.Add(u.NickName, new PlayerGameData());
+        }
+
         netCon = NetworkFactory.CreateNetworkController();
 
         netCon.SpawnPlayer();
