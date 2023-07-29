@@ -46,15 +46,6 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
     }
     public void CompleteSpwan()
     {
-        //int playerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
-        //var players = PhotonNetwork.PlayerListOthers;
-        //var pcList = PlayManager.Inst.playerConList;
-
-        //for (int i = 1; i < playerCnt; i++)
-        //{
-        //    pcList[i].PV.TransferOwnership(players[i - 1]);
-        //}
-
         PlayManager.Inst.OnCompleteSpawn?.Invoke();
     }
 

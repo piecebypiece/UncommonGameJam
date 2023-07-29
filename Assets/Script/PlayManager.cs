@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
@@ -45,6 +46,8 @@ public class PlayManager : MonoSingleton<PlayManager>
 
         netCon.SpawnPlayer();
         netCon.SpawnItem();
+
+        SceneManager.LoadScene("UI", LoadSceneMode.Additive);
     }
 
     private void Update()
@@ -55,6 +58,7 @@ public class PlayManager : MonoSingleton<PlayManager>
     private void Timer()
     {
         nowTimetick = DateTime.Now.Ticks;
+        var tick = TimeSpan.FromSeconds(GameEndTime).Ticks;
         if (nowTimetick - startedTimetick >= GameEndTime)
         {
             GameOver();

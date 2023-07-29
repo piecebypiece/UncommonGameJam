@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -156,7 +157,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         if (CheckAllPlayersReady())
         {
             PhotonNetwork.LoadLevel("Meetiing");
-            // PhotonNetwork.LoadLevel("Test GameScene");
         }
     }
 
