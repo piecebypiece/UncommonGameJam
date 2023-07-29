@@ -11,7 +11,6 @@ public class UIStempListView : MonoBehaviour
     // 스템프 정보 리스트 최근것이 가장 뒤에
     private void Start()
     {
-        Debug.Log("Start method called");
         PlayManager.Inst.OnStempInfoUpdated += SetList;
     }
     public void SetList(List<StempInfo> list)
