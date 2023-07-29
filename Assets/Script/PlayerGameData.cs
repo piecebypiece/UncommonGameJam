@@ -8,7 +8,7 @@ public class PlayerGameData
     private int maxKeyCount = 8;
     public int wordAddIndex = 0;
     public List<string> wordKeyList = new List<string>();
-    public List<string> unLocalizeWordKeyList;
+    public List<string> unLocalizeWordKeyList = new List<string>();
     public PlayerController playerCon;
 
     public Action<List<string>> OnButtonInfoUpdated;
@@ -28,7 +28,8 @@ public class PlayerGameData
         {
             wordKeyList[wordAddIndex] = key;
         }
-        
+
+        UpdateButtonInfo();
         wordAddIndex++;
     }
 

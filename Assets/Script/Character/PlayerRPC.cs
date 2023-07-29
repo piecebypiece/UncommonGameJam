@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PlayerRPC : MonoBehaviourPunCallbacks
@@ -10,22 +11,42 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     [SerializeField]
     private Text[] buttonTexts;
 
+    private PlayerGameData cachedPlayerData;
     private Dictionary<KeyCode, System.Action> keyMap;
     private string key1, key2;
 
     private void Start()
     {
+       // cachedPlayerData = PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName);
         keyMap = new Dictionary<KeyCode, System.Action>
         {
-            { KeyCode.A, () => Debug.Log("A key pressed") },
-            { KeyCode.S, () => Debug.Log("S key pressed") },
-            { KeyCode.D, () => Debug.Log("D key pressed") },
-            { KeyCode.F, () => Debug.Log("F key pressed") },
-            { KeyCode.Z, () => Debug.Log("Z key pressed") },
-            { KeyCode.X, () => Debug.Log("X key pressed") },
-            { KeyCode.C, () => Debug.Log("C key pressed") },
-            { KeyCode.V, () => Debug.Log("V key pressed") },
+            { KeyCode.A, () => SendText(0) },
+            { KeyCode.S, () => SendText(1) },
+            { KeyCode.D, () => SendText(2) },
+            { KeyCode.F, () => SendText(3) },
+            { KeyCode.Z, () => SendText(4) },
+            { KeyCode.X, () => SendText(5) },
+            { KeyCode.C, () => SendText(6) },
+            { KeyCode.V, () => SendText(7) },
         };
+    }
+
+    public void SendText(int num)
+    {
+        if (PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).wordKeyList.Count <= num)
+            return;
+
+        string key = PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).wordKeyList[num];
+
+        if (key1 == null)
+        {
+            key1 = key;
+            return;
+        }
+        key2 = key;
+        RequestCreateNewStempInfo(key1, key2, PhotonNetwork.LocalPlayer.NickName);
+        key1 = null;
+        key2 = null;
     }
 
     private void Update()
@@ -40,7 +61,12 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         if (Input.GetKeyUp(KeyCode.P))
         {
             Debug.Log("AddWordList");
-            PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList("straight");
+            PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList("short");
+        }
+        if (Input.GetKeyUp(KeyCode.O))
+        {
+            Debug.Log("AddWordList");
+            PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList("lemon");
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -59,6 +85,7 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         if (item != null)
         {
             photonView.RPC("AcquireItem", RpcTarget.All, item);
+            PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList(item.key);
         }
     }
 
@@ -69,8 +96,6 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         {
             Destroy(item.photonView.gameObject);
         }
-        // item.key
-        // 정보 
     }
 
     [PunRPC]
@@ -78,7 +103,7 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     {
         StempInfo newInfo = new StempInfo();
         newInfo.kind = StempInfo.Kind.Word;
-        newInfo.key = key1 + key2;
+        newInfo.key = key1 + " " + key2;
         newInfo.UserID = userID;
 
         PlayManager.Inst.UpdateStempInfo(newInfo);
