@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2886928491918481287}
   - component: {fileID: 76132409975488533}
   - component: {fileID: 4944194388336407224}
-  - component: {fileID: 5288162980309020765}
+  - component: {fileID: 4639191861000734895}
   - component: {fileID: 7492410094266493947}
   - component: {fileID: 8041924220624732388}
   - component: {fileID: 3021273256153915024}
@@ -45,7 +45,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3790478997745375690}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4944194388336407224
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8e21e1f8b29446244aae465ec7855c11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -88,8 +88,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5288162980309020765
-CapsuleCollider:
+--- !u!135 &4639191861000734895
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -106,10 +106,8 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &7492410094266493947
 Rigidbody:
@@ -136,7 +134,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &8041924220624732388
 MonoBehaviour:
@@ -151,10 +149,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  direction: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   rigid: {fileID: 7492410094266493947}
   PV: {fileID: 3021273256153915024}
-  inputController: {fileID: 0}
+  inputManager: {fileID: 0}
   PlayerInputController: {fileID: 0}
 --- !u!114 &3021273256153915024
 MonoBehaviour:
