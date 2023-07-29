@@ -13,8 +13,8 @@ public class PlayManager : MonoSingleton<PlayManager>
     [Header("*EndCondition")]
     public long GameEndTime;
     public float GameEndDist;
-    BoolReactiveProperty RaderDist = new BoolReactiveProperty();
-    public GameObject dangerImage;
+    //BoolReactiveProperty RaderDist = new BoolReactiveProperty();
+    //public GameObject dangerImage;
 
     [Space(10)]
     private long startedTimetick;
@@ -49,20 +49,17 @@ public class PlayManager : MonoSingleton<PlayManager>
     }
     INetworkController netCon;
 
-    //private void Awake()
-    //{
-    //    RaderDist
-    //        .DistinctUntilChanged()
-    //        .Where(x => x == true)
-    //        .Subscribe(x =>
-    //        {
-    //            dangerImage.SetActive(true);
-    //            dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
-    //        });
-    //}
-
     private void Start()
     {
+        RaderDist
+                .DistinctUntilChanged()
+                .Where(x => x == true)
+                .Subscribe(x =>
+                {
+                    dangerImage.SetActive(true);
+                    dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
+                });
+
         comonRPC = new GameObject("CommonRPC").AddComponent<CommonRPCProcessor>();
         comonRPC.transform.parent = this.transform;
         startedTimetick = DateTime.Now.Ticks;
@@ -86,7 +83,6 @@ public class PlayManager : MonoSingleton<PlayManager>
     private void Update()
     {
         Timer();
-        //AllPlayerDistance();
     }
 
     private void Timer()
@@ -109,7 +105,20 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     }
 
-    
+    public int CountingAroundPlayer(PlayerController playerController, float dis)
+    {
+        int cnt = 0;
+        for (int i = 0; i < playerConList.Count; i++)
+        {
+            if (playerConList[i] == playerController) continue;
+            if ((playerConList[i].transform.position - playerController.transform.position)
+                .sqrMagnitude <= dis * dis)
+            {
+                ++cnt;
+            }
+        }
+        return cnt;
+    }
 
     public void AllPlayerDistance()
     {
@@ -123,7 +132,7 @@ public class PlayManager : MonoSingleton<PlayManager>
                 {
                     MaxCount++;
                     float dist = (playerConList[i].transform.position - playerConList[j].transform.position).sqrMagnitude;
-                    if (dist >= GameEndDist)
+                    if (dist >= GameEndDist * GameEndDist)
                     {
                         count++;
                         RaderDist.Value = true;
@@ -132,6 +141,7 @@ public class PlayManager : MonoSingleton<PlayManager>
                     {
                         RaderDist.Value = false;
                         dangerImage.SetActive(false);
+                        break;
                     }
                 }
             }
