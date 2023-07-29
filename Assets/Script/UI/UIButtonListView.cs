@@ -20,8 +20,8 @@ public class UIButtonListView : MonoBehaviour
         int i = 0;
         for (i = 0; i < viewButtonCount && i < list.Count; i++)
         {
-            buttonList[i].text = PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).LocalizeGameWordKey(list[i]);
             buttonList[i].gameObject.SetActive(true);
+            buttonList[i].text = PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).LocalizeGameWordKey(list[i]);
             Debug.Log(buttonList[i].text + " : " + PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).LocalizeGameWordKey(list[i]));
         }
 

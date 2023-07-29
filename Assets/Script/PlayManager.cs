@@ -27,6 +27,8 @@ public class PlayManager : MonoSingleton<PlayManager>
     public List<float> centerWeightProperNonuPer;   // 마을 단계별
     public int initSpawnItemCount;
 
+    public SoundManager soundManager;
+
     public List<PlayerController> playerConList;
     public Dictionary<string, PlayerGameData> userDataDict;
     public CommonRPCProcessor comonRPC;
@@ -88,7 +90,12 @@ public class PlayManager : MonoSingleton<PlayManager>
     {
         nowTimetick = DateTime.Now.Ticks;
         var tick = TimeSpan.FromSeconds(GameEndTime).Ticks;
-        if (nowTimetick - startedTimetick >= tick)
+        var oneMin = TimeSpan.FromMinutes(1).Ticks;
+        if (nowTimetick - startedTimetick >= tick - oneMin)
+        {
+            soundManager.ChangeSound();
+        }
+        else if (nowTimetick - startedTimetick >= tick)
         {
             GameOver();
         }
