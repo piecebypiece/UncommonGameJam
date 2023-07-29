@@ -5,6 +5,7 @@ public class UIRadar : MonoBehaviour
 {
     public GameObject Image;
     PlayerController pc;
+    [SerializeField]
     bool isClosedSomeOne;
     public void Start()
     {
@@ -13,7 +14,7 @@ public class UIRadar : MonoBehaviour
     public void Update()
     {
         bool before = isClosedSomeOne;
-        isClosedSomeOne = PlayManager.Inst.CountingAroundPlayer(pc, UCDefine.RaderDistance) > 1;
+        isClosedSomeOne = PlayManager.Inst.CountingAroundPlayer(pc, UCDefine.RaderDistance) > 0;
 
         if(isClosedSomeOne!= before)
         {

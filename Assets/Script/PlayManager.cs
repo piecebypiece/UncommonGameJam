@@ -81,21 +81,17 @@ public class PlayManager : MonoSingleton<PlayManager>
     private void Update()
     {
         Timer();
+        AllPlayerDistance();
     }
 
     private void Timer()
     {
         nowTimetick = DateTime.Now.Ticks;
         var tick = TimeSpan.FromSeconds(GameEndTime).Ticks;
-        if (nowTimetick - startedTimetick >= GameEndTime)
+        if (nowTimetick - startedTimetick >= tick)
         {
             GameOver();
         }
-    }
-
-    private void PlayerDistance()
-    {
-
     }
 
     public int CountingAroundPlayer(PlayerController playerController, float dis)
@@ -125,15 +121,12 @@ public class PlayManager : MonoSingleton<PlayManager>
                 {
                     MaxCount++;
                     float dist = (playerConList[i].transform.position - playerConList[j].transform.position).sqrMagnitude;
-                    if (dist >= GameEndDist * GameEndDist)
+                    if (dist <= GameEndDist * GameEndDist)
                     {
                         count++;
-                        //RaderDist.Value = true;
                     }
                     else
                     {
-                        //RaderDist.Value = false;
-                        //dangerImage.SetActive(false);
                         break;
                     }
                 }
@@ -146,7 +139,7 @@ public class PlayManager : MonoSingleton<PlayManager>
         else
         {
             float dist = (playerConList[0].transform.position - playerConList[1].transform.position).sqrMagnitude;
-            if (dist >= GameEndDist)
+            if (dist <= GameEndDist * GameEndDist)
             {
                 GameWin();
             }
