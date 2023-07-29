@@ -41,7 +41,6 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
             int index = Random.Range(0, indexs.Count);
             var transform = spwanPointList[indexs[i]];
             GameObject player = PhotonNetwork.Instantiate("Player", transform.position, transform.localRotation);
-            player.name = "player" + i + 1;
         }
     }
     public void CompleteSpwan()
@@ -52,7 +51,7 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
 
         for (int i = 1; i < playerCnt; i++)
         {
-            pcList[i].PV.TransferOwnership(players[i]);
+            pcList[i].PV.TransferOwnership(players[i - 1]);
         }
 
         PlayManager.Inst.OnCompleteSpawn?.Invoke();

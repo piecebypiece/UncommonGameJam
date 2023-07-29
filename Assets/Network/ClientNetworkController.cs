@@ -8,7 +8,7 @@ public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkContro
 {
     public void CompleteSpwan()
     {
-        
+        PlayManager.Inst.OnCompleteSpawn?.Invoke();
     }
 
     [PunRPC]
