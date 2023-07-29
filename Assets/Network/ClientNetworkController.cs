@@ -22,11 +22,6 @@ public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkContro
        
     }
 
-    public void SendStemp()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void SpawnItem()
     {
         
