@@ -27,6 +27,7 @@ public class PlayManager : MonoSingleton<PlayManager>
     INetworkController netCon;
     private void Start()
     {
+        startedTimetick = DateTime.Now.Ticks;
         netCon = NetworkFactory.CreateNetworkController();
 
         netCon.SpawnPlayer();
