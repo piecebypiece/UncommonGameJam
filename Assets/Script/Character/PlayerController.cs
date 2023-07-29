@@ -19,10 +19,12 @@ public class PlayerController : MoveCore
         base.Start();
         DontDestroyOnLoad(gameObject);
 
+        /*
         if(PV.IsMine)
         {
 
         }
+        */
     }
 
     protected override void FixedUpdate()
