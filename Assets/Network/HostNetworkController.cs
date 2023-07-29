@@ -31,8 +31,8 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
             int index = Random.Range(0, indexs.Count);
             var transform = itemSpwanList[indexs[index]];
             int gradeIndex = FindGradeIndex(transform.position, center, disLis);
-            List<string> keys = new List<string>();
-            float per = 0.5f;            
+            List<string> keys = GameLocalizeManager.Inst.GetAllKeyList();
+            float per = 0.5f;
             if (gradeIndex != -1)
             {
                 per = pm.centerWeightProperNonuPer[gradeIndex]; 

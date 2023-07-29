@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.Components;
+using System.Collections.Generic;
+using System.Linq;
 
 // 번역되지 않아야하는 게임단어를 고정적으로 반환해주는 클래스.
 public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>
@@ -25,6 +27,11 @@ public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>
     public string Unlocalize(string key) => systemStringTable[key].LocalizedValue;
 
     public string Localize(string key) => systemStringTable[key].LocalizedValue;
+
+    public List<string> GetAllKeyList()
+    {
+        return gameStringTable.SharedData.Entries.ConvertAll(_ => _.Key);
+    }
 
     [ContextMenu("Test")]
     public void TestSystemString()
