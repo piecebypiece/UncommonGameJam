@@ -2,22 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Cinemachine;
 
 public class PlayerInputController : MonoBehaviour
 {
+    [Header("*Player")]
     [SerializeField] PlayerInput _input;
     [SerializeField] IMoveable _player;
     [SerializeField] MoveCore moveCore;
-    [SerializeField] public GameObject player;
+
+    [Header("*Camera")]
+    [SerializeField] Transform mainCamera;
+    [SerializeField] CinemachineVirtualCamera followCamera;
 
     private void Awake()
     {
         TryGetComponent(out _input);
     }
 
-    public void PlayerSetting()
+    private void Start()
     {
-        player.TryGetComponent(out _player);
+        PlayerGenerator();
+    }
+
+    private void PlayerGenerator()
+    {
+        GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        player.TryGetComponent(out PlayerController playerController);
+        if(playerController.PV.IsMine)
+        {
+            player.TryGetComponent(out _player);
+            playerController.mainCamera = mainCamera;
+            followCamera.Follow = player.transform;
+            followCamera.LookAt = player.transform;
+        }
+        Debug.Log("플레이어 생성");
     }
 
     private void OnEnable()

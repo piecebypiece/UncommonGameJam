@@ -6,8 +6,8 @@ using Photon.Pun;
 public class PlayerController : MoveCore
 {
     [SerializeField] protected Rigidbody rigid;
-    [SerializeField] PhotonView PV;
-    [SerializeField] GameObject inputController;
+    [SerializeField] public PhotonView PV;
+    [SerializeField] GameObject inputManager;
     [SerializeField] PlayerInputController PlayerInputController;
 
     protected override void Awake()
@@ -21,14 +21,6 @@ public class PlayerController : MoveCore
 
         if(PV.IsMine)
         {
-            inputController = GameObject.Find("InputManager");
-            if(inputController != null)
-            {
-                Debug.Log(GameObject.Find("InputManager").name);
-                inputController.TryGetComponent(out PlayerInputController playerInputController);
-                playerInputController.player = this.gameObject;
-                playerInputController.PlayerSetting();
-            }
 
         }
     }

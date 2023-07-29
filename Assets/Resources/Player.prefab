@@ -136,7 +136,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &8041924220624732388
 MonoBehaviour:
@@ -151,10 +151,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  direction: {x: 0, y: 0, z: 0}
+  mainCamera: {fileID: 0}
   rigid: {fileID: 7492410094266493947}
   PV: {fileID: 3021273256153915024}
-  inputController: {fileID: 0}
+  inputManager: {fileID: 0}
   PlayerInputController: {fileID: 0}
 --- !u!114 &3021273256153915024
 MonoBehaviour:
