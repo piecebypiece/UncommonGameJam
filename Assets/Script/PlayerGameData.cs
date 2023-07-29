@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerGameData
 {
     private int maxKeyCount = 8;
     public int wordAddIndex = 0;
-    public List<string> wordKeyList;
+    public List<string> wordKeyList = new List<string>();
     public List<string> unLocalizeWordKeyList;
     public PlayerController playerCon;
 
@@ -14,11 +15,20 @@ public class PlayerGameData
 
     public void AddWordList(string key)
     {
-        if(wordAddIndex == maxKeyCount)
+        if (wordAddIndex == maxKeyCount)
         {
             wordAddIndex = 0;
         }
-        wordKeyList[wordAddIndex] = key;
+
+        if (wordKeyList.Count < maxKeyCount)
+        {
+            wordKeyList.Add(key);
+        }
+        else
+        {
+            wordKeyList[wordAddIndex] = key;
+        }
+        
         wordAddIndex++;
     }
 

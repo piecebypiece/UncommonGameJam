@@ -11,6 +11,11 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     private Text[] buttonTexts;
     private void Update()
     {
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            Debug.Log("AddWordList");
+            PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList("straight");
+        }
         if (Input.GetKeyDown(KeyCode.R))
         {
             RequestCreateNewStempInfo("go", "right", PhotonNetwork.LocalPlayer.NickName);
