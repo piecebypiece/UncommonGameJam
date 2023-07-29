@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,15 +46,16 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
     }
     public void CompleteSpwan()
     {
-        int playerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
-        var players = PhotonNetwork.PlayerListOthers;
-        var pcList = PlayManager.Inst.playerConList;
+        //int playerCnt = PhotonNetwork.CurrentRoom.PlayerCount;
+        //var players = PhotonNetwork.PlayerListOthers;
+        //var pcList = PlayManager.Inst.playerConList;
 
-        for (int i = 1; i < playerCnt; i++)
-        {
-            pcList[i].PV.TransferOwnership(players[i - 1]);
-        }
+        //for (int i = 1; i < playerCnt; i++)
+        //{
+        //    pcList[i].PV.TransferOwnership(players[i - 1]);
+        //}
 
         PlayManager.Inst.OnCompleteSpawn?.Invoke();
     }
+
 }
