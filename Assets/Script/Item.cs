@@ -14,7 +14,6 @@ public class Item : MonoBehaviourPunCallbacks, IPunInstantiateMagicCallback
         object[] instantiationData = info.photonView.InstantiationData;
         key = (string)instantiationData[0];
 
-        PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName)
-            .LocalizeGameWordKey(key);
+        GameLocalizeManager.Inst.Unlocalize(key);
     }
 }

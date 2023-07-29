@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 
+  text: {fileID: 0}
 --- !u!1 &7999020021594971496
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,3 +548,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: 
+  text: {fileID: 3878643084258383969}
