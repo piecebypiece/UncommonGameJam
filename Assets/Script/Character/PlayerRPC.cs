@@ -9,8 +9,34 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private Text[] buttonTexts;
+
+    private Dictionary<KeyCode, System.Action> keyMap;
+    private string key1, key2;
+
+    private void Start()
+    {
+        keyMap = new Dictionary<KeyCode, System.Action>
+        {
+            { KeyCode.A, () => Debug.Log("A key pressed") },
+            { KeyCode.S, () => Debug.Log("S key pressed") },
+            { KeyCode.D, () => Debug.Log("D key pressed") },
+            { KeyCode.F, () => Debug.Log("F key pressed") },
+            { KeyCode.Z, () => Debug.Log("Z key pressed") },
+            { KeyCode.X, () => Debug.Log("X key pressed") },
+            { KeyCode.C, () => Debug.Log("C key pressed") },
+            { KeyCode.V, () => Debug.Log("V key pressed") },
+        };
+    }
+
     private void Update()
     {
+        foreach (var keyActionPair in keyMap)
+        {
+            if (Input.GetKeyDown(keyActionPair.Key))
+            {
+                keyActionPair.Value.Invoke();
+            }
+        }
         if (Input.GetKeyUp(KeyCode.P))
         {
             Debug.Log("AddWordList");
