@@ -26,12 +26,12 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
             indexs.Add(i);
         }
 
-        for (int i = 0; i < itemSpwanList.Count; i++)
+        List<string> keys = GameLocalizeManager.Inst.GetAllKeyList();
+        for (int i = 0; i < keys.Count; i++)
         {
             int index = Random.Range(0, indexs.Count);
             var transform = itemSpwanList[indexs[index]];
             int gradeIndex = FindGradeIndex(transform.position, center, disLis);
-            List<string> keys = GameLocalizeManager.Inst.GetAllKeyList();
             float per = 0.5f;
             if (gradeIndex != -1)
             {

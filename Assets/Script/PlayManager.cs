@@ -27,8 +27,6 @@ public class PlayManager : MonoSingleton<PlayManager>
     public List<float> centerWeightProperNonuPer;   // 마을 단계별
     public int initSpawnItemCount;
 
-    public SoundManager soundManager;
-
     public List<PlayerController> playerConList;
     public Dictionary<string, PlayerGameData> userDataDict;
     public CommonRPCProcessor comonRPC;
@@ -51,14 +49,14 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     private void Start()
     {
-        RaderDist
-                .DistinctUntilChanged()
-                .Where(x => x == true)
-                .Subscribe(x =>
-                {
-                    dangerImage.SetActive(true);
-                    dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
-                });
+        //RaderDist
+        //        .DistinctUntilChanged()
+        //        .Where(x => x == true)
+        //        .Subscribe(x =>
+        //        {
+        //            dangerImage.SetActive(true);
+        //            dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
+        //        });
 
         comonRPC = new GameObject("CommonRPC").AddComponent<CommonRPCProcessor>();
         comonRPC.transform.parent = this.transform;
@@ -89,12 +87,7 @@ public class PlayManager : MonoSingleton<PlayManager>
     {
         nowTimetick = DateTime.Now.Ticks;
         var tick = TimeSpan.FromSeconds(GameEndTime).Ticks;
-        var oneMin = TimeSpan.FromMinutes(4.8).Ticks;
-        if (nowTimetick - startedTimetick >= tick - oneMin)
-        {
-            soundManager.ChangeSound();
-        }
-        if (nowTimetick - startedTimetick >= tick)
+        if (nowTimetick - startedTimetick >= GameEndTime)
         {
             GameOver();
         }
@@ -135,12 +128,12 @@ public class PlayManager : MonoSingleton<PlayManager>
                     if (dist >= GameEndDist * GameEndDist)
                     {
                         count++;
-                        RaderDist.Value = true;
+                        //RaderDist.Value = true;
                     }
                     else
                     {
-                        RaderDist.Value = false;
-                        dangerImage.SetActive(false);
+                        //RaderDist.Value = false;
+                        //dangerImage.SetActive(false);
                         break;
                     }
                 }
