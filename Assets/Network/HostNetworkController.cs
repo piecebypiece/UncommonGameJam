@@ -38,7 +38,8 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
         {
             int index = Random.Range(0, indexs.Count);
             var transform = spwanPointList[indexs[i]];
-            GameObject player = PhotonNetwork.Instantiate("Player" + i + 1, transform.position, transform.localRotation);
+            GameObject player = PhotonNetwork.Instantiate("Player", transform.position, transform.localRotation);
+            player.name = "player" + i + 1;
             pcList.Add(player.GetComponent<PlayerController>());
         }
 

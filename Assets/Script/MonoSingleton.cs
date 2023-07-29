@@ -9,6 +9,8 @@ public class MonoSingleton<T> : MonoBehaviour where T : class, new()
 
     private void Awake()
     {
+        sInst = this;
+        inst = GetComponent<T>();
         GameObject.DontDestroyOnLoad(this);
     }
     public static T GetInstandce()
@@ -18,7 +20,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : class, new()
             sInst = GameObject.FindObjectOfType<MonoSingleton<T>>();
             if(sInst == null )
             {
-                sInst = new MonoSingleton<T>();
+                new MonoSingleton<T>();
             }
         }
 
