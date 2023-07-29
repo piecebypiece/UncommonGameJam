@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class PlayerController : MoveCore
+public class PlayerController : MoveCore, IPunInstantiateMagicCallback
 {
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] public PhotonView PV;
@@ -48,6 +48,17 @@ public class PlayerController : MoveCore
         {
             isTurn.Value = true;
             Turn();
+        }
+    }
+
+    public void OnPhotonInstantiate(PhotonMessageInfo info)
+    {
+        var pm = PlayManager.Inst;
+        pm.playerConList.Add(this);
+
+        if (pm.playerConList.Count == PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            pm.NetController.CompleteSpwan();
         }
     }
 }

@@ -40,7 +40,6 @@ public class PlayManager : MonoSingleton<PlayManager>
 
         netCon.SpawnPlayer();
         netCon.SpawnItem();
-        OnCompleteSpawn?.Invoke();
     }
 
     private void Update()

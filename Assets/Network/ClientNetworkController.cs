@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class ClientNetworkController : MonoBehaviourPunCallbacks, INetworkController
 {
+    public void CompleteSpwan()
+    {
+        
+    }
+
     [PunRPC]
     public void OnItem()
     {
