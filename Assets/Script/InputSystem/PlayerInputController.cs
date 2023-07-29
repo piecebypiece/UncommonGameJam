@@ -2,18 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
+using Cinemachine;
 
 public class PlayerInputController : MonoBehaviour
 {
+    [Header("*Player")]
     [SerializeField] PlayerInput _input;
     [SerializeField] IMoveable _player;
     [SerializeField] MoveCore moveCore;
-    [SerializeField] GameObject player;
+
+    [Header("*Camera")]
+    [SerializeField] Transform mainCamera;
+    [SerializeField] CinemachineVirtualCamera followCamera;
 
     private void Awake()
     {
         TryGetComponent(out _input);
-        player.TryGetComponent(out _player);
+    }
+
+    private void Start()
+    {
+        PlayerGenerator();
+    }
+
+    private void PlayerGenerator()
+    {
+        GameObject player = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        player.TryGetComponent(out PlayerController playerController);
+        if(playerController.PV.IsMine)
+        {
+            player.TryGetComponent(out _player);
+            playerController.mainCamera = mainCamera;
+            followCamera.Follow = player.transform;
+            followCamera.LookAt = player.transform;
+        }
+        Debug.Log("플레이어 생성");
     }
 
     private void OnEnable()
@@ -24,16 +48,16 @@ public class PlayerInputController : MonoBehaviour
     private void SetPlayerInput()
     {
         var playerInput = _input.actions.FindActionMap("Player");
-        playerInput["Move"].performed += OnMove;
-        playerInput["Move"].canceled += OnMoveStop;
+        // playerInput["Move"].performed += OnMove;
+        // playerInput["Move"].canceled += OnMoveStop;
         playerInput["Dash"].performed += OnDash;
         playerInput["Dash"].canceled += OnDashStop;
     }
 
     private void OnDisable()
     {
-        _input.actions["Move"].performed -= OnMove;
-        _input.actions["Move"].canceled -= OnMoveStop;
+        // _input.actions["Move"].performed -= OnMove;
+        // _input.actions["Move"].canceled -= OnMoveStop;
         _input.actions["Dash"].performed -= OnDash;
         _input.actions["Dash"].canceled -= OnDashStop;
     }
