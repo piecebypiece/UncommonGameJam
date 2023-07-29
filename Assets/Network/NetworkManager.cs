@@ -6,22 +6,42 @@ using UnityEngine.UI;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
     public Text StatusText;
+
+    [Header("Menu")]
     public InputField roomInput, NickNameInput;
+
+    [Header("WaitingRoom")]
+    public GameObject waitingRoomPanel;
+    public Text waitingRoomInfoText;
+    public Button startButton;
+    public Button readyButton;
+
+    public Text ListText;
+    public Text[] ChatText;
+    //public InputField ChatInput;
 
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         Screen.SetResolution(960, 540, false);
     }
 
     void Start() => Connect();
 
-    void Update() => StatusText.text = PhotonNetwork.NetworkClientState.ToString();
+    void Update()
+    {
+        StatusText.text = PhotonNetwork.NetworkClientState.ToString();
+        //waitingRoomInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 / " + PhotonNetwork.CountOfPlayers + "접속";
+    }
 
 
+    public void Connect()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
 
-    public void Connect() => PhotonNetwork.ConnectUsingSettings();
+        PhotonNetwork.ConnectUsingSettings();
+    }
 
     public override void OnConnectedToMaster()
     {
@@ -43,9 +63,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
 
 
-    public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 4 });
+    public void CreateRoom()
+    {
+        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text;
+        PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, new RoomOptions { MaxPlayers = 10 });
+    }
 
-    public void JoinRoom() => PhotonNetwork.JoinRoom(roomInput.text);
+    public void JoinRoom()
+    {
+        PhotonNetwork.LocalPlayer.NickName = NickNameInput.text;
+        PhotonNetwork.JoinRoom(roomInput.text);
+    }
 
     public void JoinOrCreateRoom() => PhotonNetwork.JoinOrCreateRoom(roomInput.text, new RoomOptions { MaxPlayers = 2 }, null);
 
@@ -58,7 +86,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         print("방참가완료");
-        PhotonNetwork.LoadLevel("GameScene");
+        waitingRoomPanel.SetActive(true);
+        // 마스터 클라이언트인지 확인
+        if (PhotonNetwork.IsMasterClient)
+        {
+            startButton.gameObject.SetActive(true);
+            readyButton.gameObject.SetActive(false);
+            SetReadyStatus(true);
+        }
+        else
+        {
+            startButton.gameObject.SetActive(false);
+            readyButton.gameObject.SetActive(true);
+        }
+        RoomRenewal();
+        //ChatInput.text = "";
+        for (int i = 0; i < ChatText.Length; i++) ChatText[i].text = "";
+        //PhotonNetwork.LoadLevel("GameScene");
         // 테스트용
         // PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
         // Debug.Log("플레이어 생성");
@@ -70,6 +114,73 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message) => print("방랜덤참가실패");
 
+    public void SetReadyStatus(bool isReady)
+    {
+        // 플레이어의 준비 상태를 설정
+        PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable { { "IsReady", isReady } });
+    }
+
+    public bool CheckAllPlayersReady()
+    {
+        // 모든 플레이어가 준비 상태인지 확인
+        foreach (var player in PhotonNetwork.PlayerList)
+        {
+            object isReady;
+            if (player.CustomProperties.TryGetValue("IsReady", out isReady))
+            {
+                if (!(bool)isReady)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public void StartGame()
+    {
+        //if (PhotonNetwork.CurrentRoom.PlayerCount < 2)
+        //{
+        //    // 2명 이하 일 때 단순 리턴, 추후 시각적으로 정보 제공 필요
+        //    Debug.Log("인원 부족");
+        //    return;
+        //}
+
+        if (CheckAllPlayersReady())
+        {
+            PhotonNetwork.LoadLevel("GameScene");
+            // PhotonNetwork.LoadLevel("Test GameScene");
+        }
+    }
+
+    #region waitingRoom
+
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        RoomRenewal();
+        //ChatRPC("<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
+    }
+
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        RoomRenewal();
+        //ChatRPC("<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
+    }
+
+    void RoomRenewal()
+    {
+        ListText.text = "";
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+            ListText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+        waitingRoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 / " + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
+    }
+    #endregion
 
 
     [ContextMenu("정보")]
