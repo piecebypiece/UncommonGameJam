@@ -9,23 +9,26 @@ public class UIStempListView : MonoBehaviour
 
     // 리스트를 통해 정보 정보 업데이트
     // 스템프 정보 리스트 최근것이 가장 뒤에
-    private void Awake()
+    private void Start()
     {
+        Debug.Log("Start method called");
         PlayManager.Inst.OnStempInfoUpdated += SetList;
     }
     public void SetList(List<StempInfo> list)
     {
+        Debug.Log("SetList");
         int viewStempCount = stempList.Count;
 
         int i = 0;
-        for (i = 0; i < viewStempCount || 0 > list.Count - i; i++)
+        for (i = 0; i < viewStempCount && i < list.Count; i++)
         {
             stempList[i].SetInfo(list[^(i + 1)]);
+            stempList[i].gameObject.SetActive(true);
         }
 
         for (int j = i; j < viewStempCount; j++)
         {
-            stempList[i].gameObject.SetActive(false);
+            stempList[j].gameObject.SetActive(false);
         }
     }
 }

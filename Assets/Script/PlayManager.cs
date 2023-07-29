@@ -46,6 +46,7 @@ public class PlayManager : MonoSingleton<PlayManager>
     {
         stempInfoList.Add(newInfo);
 
+        Debug.Log("OnStempInfoUpdated event triggered");
         OnStempInfoUpdated?.Invoke(stempInfoList);
     }
 }

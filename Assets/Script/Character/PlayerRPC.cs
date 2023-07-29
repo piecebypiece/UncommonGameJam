@@ -12,6 +12,10 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         {
             CreateNewStempInfo();
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            CreateNewStempInfo2();
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -42,6 +46,17 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         StempInfo newInfo = new StempInfo();
         newInfo.kind = StempInfo.Kind.Word;
         newInfo.key = "Hello";
+        newInfo.UserID = "Player1";
+
+        PlayManager.Inst.UpdateStempInfo(newInfo);
+        //photonView.RPC("CreateNewStempInfoRPC", RpcTarget.All);
+    }
+
+    public void CreateNewStempInfo2()
+    {
+        StempInfo newInfo = new StempInfo();
+        newInfo.kind = StempInfo.Kind.Word;
+        newInfo.key = "abcd";
         newInfo.UserID = "Player1";
 
         PlayManager.Inst.UpdateStempInfo(newInfo);
