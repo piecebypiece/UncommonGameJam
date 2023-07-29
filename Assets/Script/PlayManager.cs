@@ -14,6 +14,9 @@ public class PlayManager : MonoSingleton<PlayManager>
     public Dictionary<string, PlayerGameData> userDataDict;
     public CommonRPCProcessor comonRPC;
 
+    public List<StempInfo> stempInfoList = new List<StempInfo>();
+    public Action<List<StempInfo>> OnStempInfoUpdated;
+
     public INetworkController NetController => netCon;
 
     public PlayerGameData GetUserData(string nickname)
@@ -37,5 +40,12 @@ public class PlayManager : MonoSingleton<PlayManager>
     private void Update()
     {
         
+    }
+
+    public void UpdateStempInfo(StempInfo newInfo)
+    {
+        stempInfoList.Add(newInfo);
+
+        OnStempInfoUpdated?.Invoke(stempInfoList);
     }
 }

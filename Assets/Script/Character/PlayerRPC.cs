@@ -6,6 +6,13 @@ using UnityEngine;
 
 public class PlayerRPC : MonoBehaviourPunCallbacks
 {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            CreateNewStempInfo();
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (!photonView.IsMine) return; // 이 플레이어가 로컬 플레이어가 아니면 아무것도 하지 않습니다.
@@ -28,5 +35,16 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
 
         // 정보 입력
 
+    }
+
+    public void CreateNewStempInfo()
+    {
+        StempInfo newInfo = new StempInfo();
+        newInfo.kind = StempInfo.Kind.Word;
+        newInfo.key = "Hello";
+        newInfo.UserID = "Player1";
+
+        PlayManager.Inst.UpdateStempInfo(newInfo);
+        //photonView.RPC("CreateNewStempInfoRPC", RpcTarget.All);
     }
 }

@@ -155,7 +155,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         if (CheckAllPlayersReady())
         {
-            PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("Meetiing");
             // PhotonNetwork.LoadLevel("Test GameScene");
         }
     }

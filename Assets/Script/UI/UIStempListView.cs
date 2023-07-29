@@ -9,6 +9,10 @@ public class UIStempListView : MonoBehaviour
 
     // 리스트를 통해 정보 정보 업데이트
     // 스템프 정보 리스트 최근것이 가장 뒤에
+    private void Awake()
+    {
+        PlayManager.Inst.OnStempInfoUpdated += SetList;
+    }
     public void SetList(List<StempInfo> list)
     {
         int viewStempCount = stempList.Count;

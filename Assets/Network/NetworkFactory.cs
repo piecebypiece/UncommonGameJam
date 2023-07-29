@@ -1,5 +1,6 @@
-﻿using Photon.Pun;
+using Photon.Pun;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -8,13 +9,15 @@ public static class NetworkFactory
 {
     public static INetworkController CreateNetworkController()
     {
+        GameObject go = new GameObject();
+        go.name = nameof(INetworkController);
         if (PhotonNetwork.IsMasterClient)
         {
-            return new HostNetworkController();
+            return go.AddComponent<HostNetworkController>();
         }
         else
         {
-            return new ClientNetworkController();
+            return go.AddComponent<ClientNetworkController>();
         }
     }
 }
