@@ -48,7 +48,7 @@ public class PlayerInputController : MonoBehaviour
         myPlayer.mainCamera = mainCamera.gameObject;
         followCamera.Follow = playerController.transform;
         followCamera.LookAt = playerController.transform;
-        compass.followCamera = followCamera.gameObject;
+        //compass.followCamera = followCamera.gameObject;
         myPlayer.isTurn
              .Where(_ => _ == true)
              .Subscribe(x =>
