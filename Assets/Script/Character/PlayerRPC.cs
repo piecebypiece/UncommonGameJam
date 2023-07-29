@@ -24,24 +24,22 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     {
         if (!photonView.IsMine) return; // 이 플레이어가 로컬 플레이어가 아니면 아무것도 하지 않습니다.
 
-        Test_Item item = other.GetComponent<Test_Item>();
+        Item item = other.GetComponent<Item>();
         if (item != null)
         {
-            photonView.RPC("AcquireItem", RpcTarget.All, item.photonView.ViewID);
+            photonView.RPC("AcquireItem", RpcTarget.All, item);
         }
     }
 
     [PunRPC]
-    public void AcquireItem(int itemId)
+    public void AcquireItem(Item item)
     {
-        PhotonView itemPhotonView = PhotonView.Find(itemId);
-        if (itemPhotonView != null)
+        if (item.photonView != null)
         {
-            Destroy(itemPhotonView.gameObject);
+            Destroy(item.photonView.gameObject);
         }
-
-        // 정보 입력
-
+        // item.key
+        // 정보 
     }
 
     [PunRPC]

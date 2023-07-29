@@ -9,6 +9,7 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     [SerializeField] public PhotonView PV;
     [SerializeField] GameObject inputManager;
     private bool isChack = false;
+    private PlayManager PlayManager;
 
     protected override void Awake()
     {
@@ -20,12 +21,10 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
         base.Start();
         DontDestroyOnLoad(gameObject);
 
-        /*
-        if(PV.IsMine)
-        {
-
-        }
-        */
+        GameObject _playManager = GameObject.Find("PlayManager");
+        _playManager.TryGetComponent(out PlayManager);
+        
+        // playManager.AllPlayerDistance();
     }
 
     protected override void FixedUpdate()
@@ -43,9 +42,7 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
 
         if(collision.gameObject.CompareTag("Player"))
         {
-            GameObject _playManager = GameObject.Find("PlayManager");
-            _playManager.TryGetComponent(out PlayManager playManager);
-            playManager.PlayerDistance();
+
         }
     }
 
