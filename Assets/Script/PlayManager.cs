@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.SceneManagement;
+<<<<<<< HEAD
 using Photon.Pun;
+=======
+using UnityEngine.UI;
+using DG.Tweening;
+>>>>>>> bd63953 (레이더 제작중)
 
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
@@ -11,6 +16,8 @@ public class PlayManager : MonoSingleton<PlayManager>
     [Header("*EndCondition")]
     public long GameEndTime;
     public float GameEndDist;
+    BoolReactiveProperty RaderDist = new BoolReactiveProperty();
+    public GameObject dangerImage;
 
     [Space(10)]
     private long startedTimetick;
@@ -42,6 +49,19 @@ public class PlayManager : MonoSingleton<PlayManager>
         return null;
     }
     INetworkController netCon;
+
+    private void Awake()
+    {
+        RaderDist
+            .DistinctUntilChanged()
+            .Where(x => x == true)
+            .Subscribe(x =>
+            {
+                dangerImage.SetActive(true);
+                dangerImage.transform.DOScale(new Vector2(2, 2), 1).SetLoops(-1, LoopType.Yoyo);
+            });
+    }
+
     private void Start()
     {
         comonRPC = new GameObject("CommonRPC").AddComponent<CommonRPCProcessor>();
@@ -67,6 +87,7 @@ public class PlayManager : MonoSingleton<PlayManager>
     private void Update()
     {
         Timer();
+        //AllPlayerDistance();
     }
 
     private void Timer()
@@ -79,7 +100,14 @@ public class PlayManager : MonoSingleton<PlayManager>
         }
     }
 
-    public void PlayerDistance()
+    private void PlayerDistance()
+    {
+
+    }
+
+    
+
+    public void AllPlayerDistance()
     {
         int MaxCount = 0;
         int count = 0;
@@ -90,10 +118,16 @@ public class PlayManager : MonoSingleton<PlayManager>
                 for (int j = i + 1; j <= playerConList.Count - 1; j++)
                 {
                     MaxCount++;
-                    float dist = Vector3.Distance(playerConList[i].transform.position, playerConList[j].transform.position);
+                    float dist = (playerConList[i].transform.position - playerConList[j].transform.position).sqrMagnitude;
                     if (dist >= GameEndDist)
                     {
                         count++;
+                        RaderDist.Value = true;
+                    }
+                    else
+                    {
+                        RaderDist.Value = false;
+                        dangerImage.SetActive(false);
                     }
                 }
             }
@@ -104,7 +138,11 @@ public class PlayManager : MonoSingleton<PlayManager>
         }
         else
         {
-            GameWin();
+            float dist = (playerConList[0].transform.position - playerConList[1].transform.position).sqrMagnitude;
+            if (dist >= GameEndDist)
+            {
+                GameWin();
+            }
         }
     }
 
