@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class MoveCore : MonoBehaviour, IMoveable
 {
     [SerializeField] protected float speed = 5;
-    [SerializeField] public Transform mainCamera;
+    [SerializeField] public GameObject mainCamera;
+    [SerializeField] float turnTime;
+    [SerializeField] public BoolReactiveProperty isTurn = new BoolReactiveProperty();
 
-    protected Vector3 direction = Vector3.forward;
+    public Vector3 direction; 
     private Vector3 dir; // 카메라 좌표계를 받은 벡터
 
 
@@ -19,6 +22,11 @@ public class MoveCore : MonoBehaviour, IMoveable
 
     }
 
+    protected virtual void Start()
+    {
+        direction = Vector3.forward;
+    }
+
     protected virtual void FixedUpdate()
     {
         Move();
@@ -26,12 +34,21 @@ public class MoveCore : MonoBehaviour, IMoveable
 
     public virtual void Move()
     {
-        dir = direction.z * mainCamera.forward.normalized;
-        dir += direction.x * mainCamera.right.normalized;
-
         if (direction != Vector3.zero)
         {
             transform.Translate(dir * speed * Time.deltaTime);
+        }
+
+        if (isTurn.Value)
+        {
+            this.speed = 12f;
+            dir = direction;
+        }
+        else
+        {
+            this.speed = 5f;
+            dir = direction.z * mainCamera.transform.forward.normalized;
+            dir += direction.x * mainCamera.transform.right.normalized;
         }
     }
 
@@ -43,5 +60,29 @@ public class MoveCore : MonoBehaviour, IMoveable
     public void Dash(float val)
     {
         this.speed = val;
+    }
+
+    public virtual void Turn()
+    {
+
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        
+    }
+
+    protected void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        
     }
 }

@@ -1,25 +1,26 @@
-﻿using System.Collections;
+using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 
 
-public class HostNetworkController : INetworkController
+public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkController
 {
-    public void GameEnd()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void GamePause()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void GameStart()
-    {
-        throw new System.NotImplementedException();
-    }
-
     public void OnItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SendStemp()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SpawnItem()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void SpawnPlayer()
     {
         throw new System.NotImplementedException();
     }

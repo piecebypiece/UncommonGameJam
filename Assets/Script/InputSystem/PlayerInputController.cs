@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using Cinemachine;
+using UniRx;
 
 public class PlayerInputController : MonoBehaviour
 {
@@ -11,19 +12,39 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField] PlayerInput _input;
     [SerializeField] IMoveable _player;
     [SerializeField] MoveCore moveCore;
+    [SerializeField] PlayerController myPlayer;
 
     [Header("*Camera")]
     [SerializeField] Transform mainCamera;
     [SerializeField] CinemachineVirtualCamera followCamera;
+    [SerializeField] float turnTime;
+
+    [Header("*Input")]
+    [SerializeField] CinemachineInputProvider inputProcider;
+    [SerializeField] InputActionReference moveReference;
+
+    [Header("*UI")]
+    [SerializeField] Compass compass;
 
     private void Awake()
     {
         TryGetComponent(out _input);
+
+        PlayerGenerator();
+
+        
+        myPlayer.isTurn
+            .Where(_ => _ == true)
+            .Subscribe(x =>
+            {
+                StartCoroutine(InputStop());
+            });
+        
     }
 
     private void Start()
     {
-        PlayerGenerator();
+        // PlayerGenerator();
     }
 
     private void PlayerGenerator()
@@ -32,12 +53,22 @@ public class PlayerInputController : MonoBehaviour
         player.TryGetComponent(out PlayerController playerController);
         if(playerController.PV.IsMine)
         {
-            player.TryGetComponent(out _player);
-            playerController.mainCamera = mainCamera;
+            myPlayer = playerController;
+            myPlayer.TryGetComponent(out _player);
+            myPlayer.mainCamera = mainCamera.gameObject;
             followCamera.Follow = player.transform;
             followCamera.LookAt = player.transform;
+            compass.followCamera = followCamera.gameObject;
         }
-        Debug.Log("플레이어 생성");
+    }
+
+    private IEnumerator InputStop()
+    {
+        myPlayer.direction = Vector3.back;
+        yield return new WaitForSeconds(turnTime);
+
+        myPlayer.direction = Vector3.forward;
+        yield break;
     }
 
     private void OnEnable()
