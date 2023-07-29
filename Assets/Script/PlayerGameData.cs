@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
 public class PlayerGameData
 {
     public int wordAddIndex = 0;
     public List<string> wordKeyList;
     public List<string> localizeWordKeyList;
+    public PlayerController playerCon;
 
     public void AddWordList(string key)
     {

@@ -7,8 +7,8 @@ using UnityEngine;
 // 플레이어 매니저
 public class PlayManager : MonoSingleton<PlayManager>
 {
-    [SerializeField] Transform playerSpwanPointList;
-    [SerializeField] Transform itemSpwanPointList;
+    [SerializeField] List<Transform> playerSpwanPointList;
+    [SerializeField] List<Transform> itemSpwanPointList;
 
     public Dictionary<string, PlayerGameData> userDataDict;
 
@@ -29,5 +29,10 @@ public class PlayManager : MonoSingleton<PlayManager>
 
         netCon.SpawnPlayer();
         netCon.SpawnItem();
+    }
+
+    private void Update()
+    {
+        
     }
 }
