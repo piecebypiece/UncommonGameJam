@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - AcquireItem
   - OnItem
+  - AddPlayers
+  - SpawnPlayer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
