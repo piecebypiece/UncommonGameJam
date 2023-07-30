@@ -11,6 +11,9 @@ public class PlayerGameData
     public List<string> unLocalizeWordKeyList = new List<string>();
     public PlayerController playerCon;
 
+    public List<StempInfo> stempInfoList = new List<StempInfo>();
+
+    public Action<List<StempInfo>> OnStempInfoUpdated;
     public Action<List<string>> OnButtonInfoUpdated;
 
     public void AddWordList(string key)
@@ -40,6 +43,14 @@ public class PlayerGameData
             return wordKeyList[index];
         }
         return null;
+    }
+
+    public void UpdateStempInfo(StempInfo newInfo)
+    {
+        stempInfoList.Add(newInfo);
+
+        Debug.Log("OnStempInfoUpdated event triggered");
+        OnStempInfoUpdated?.Invoke(stempInfoList);
     }
 
     public void UpdateButtonInfo()

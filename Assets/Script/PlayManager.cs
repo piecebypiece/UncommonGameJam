@@ -33,8 +33,8 @@ public class PlayManager : MonoSingleton<PlayManager>
     public Dictionary<string, PlayerGameData> userDataDict;
     public CommonRPCProcessor comonRPC;
 
-    public List<StempInfo> stempInfoList = new List<StempInfo>();
-    public Action<List<StempInfo>> OnStempInfoUpdated;
+    
+    
     public Action OnCompleteSpawn;
 
     public INetworkController NetController => netCon;
@@ -165,13 +165,6 @@ public class PlayManager : MonoSingleton<PlayManager>
         Debug.Log("GameWin");
     }
 
-    public void UpdateStempInfo(StempInfo newInfo)
-    {
-        stempInfoList.Add(newInfo);
-
-        Debug.Log("OnStempInfoUpdated event triggered");
-        OnStempInfoUpdated?.Invoke(stempInfoList);
-    }
 
     public PlayerController GetMineController()
     {

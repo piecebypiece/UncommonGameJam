@@ -112,7 +112,7 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         newInfo.key = GameLocalizeManager.Inst.Localize(key1) + " " + GameLocalizeManager.Inst.Localize(key2);
         newInfo.UserID = userID;
 
-        PlayManager.Inst.UpdateStempInfo(newInfo);
+        PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).UpdateStempInfo(newInfo);
     }
 
     public void RequestCreateNewStempInfo(string key1, string key2, string userID)
