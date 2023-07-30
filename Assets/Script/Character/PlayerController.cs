@@ -29,7 +29,7 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     {
         base.Start();
         DontDestroyOnLoad(gameObject);
-        
+        cam = Camera.main;
         // playManager.AllPlayerDistance();
     }
 
@@ -37,18 +37,21 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     {
         base.FixedUpdate();
 
-        if(isTurn.Value)
-        {
-            speed -= slowVal * Time.fixedDeltaTime;
-            if(speed < slowVal)
-            {
-                speed = normalSpeed;
-                isTurn.Value = false;
-                Vector3 camera = new(cam.transform.position.x, 0f, cam.transform.position.z);
-                Vector3 pc = new(transform.position.x, 0f, transform.position.z);
-                direction = (pc - camera).normalized;
-            }
-        }
+        //if(isTurn.Value)
+        //{
+        //    speed -= slowVal * Time.fixedDeltaTime;
+        //    if(speed < slowVal)
+        //    {    
+        //        isTurn.Value = false;
+        //        Vector3 camera = new(cam.transform.position.x, 0f, cam.transform.position.z);
+        //        Vector3 pc = new(transform.position.x, 0f, transform.position.z);
+        //        direction = (pc - camera).normalized;
+        //    }
+        //}
+        //else if (normalSpeed > speed)
+        //{
+        //    speed = normalSpeed;
+        //}
     }
 
     protected override void OnCollisionEnter(Collision collision)
@@ -56,18 +59,18 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
         base.OnCollisionEnter(collision);
         if (collision.gameObject.CompareTag("Wall"))
         { 
-            Vector3 incomingVec = collision.impulse - direction;
+            //Vector3 incomingVec = collision.impulse - direction;
 
-            Vector3 normalVec = collision.contacts[0].normal;       // 법선벡터
+            //Vector3 normalVec = collision.contacts[0].normal;       // 법선벡터
 
-            Vector3 reflectVec = Vector3.Reflect(incomingVec, normalVec);
-            direction = reflectVec;
+            //Vector3 reflectVec = Vector3.Reflect(incomingVec, normalVec);
+            //direction = reflectVec;
 
-            if (isTurn.Value)
-                Dash(speed * 2f);
-            else
-                Dash(speed * 0.9f);
-            isTurn.Value = true;
+            //if (!isTurn.Value)
+            //    Dash(speed * 2f);
+            //else
+            //    Dash(speed * 0.75f);
+            //isTurn.Value = true;
         }
 
         if (collision.gameObject.CompareTag("Player"))
