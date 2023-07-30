@@ -16,6 +16,9 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
     private Dictionary<KeyCode, System.Action> keyMap;
     private string key1, key2;
 
+    public AudioSource audioSource;
+    public AudioClip acquireSound;
+
     private void Start()
     {
        // cachedPlayerData = PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName);
@@ -85,6 +88,7 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         Item item = other.GetComponent<Item>();
         if (item != null)
         {
+            audioSource.PlayOneShot(acquireSound);
             photonView.RPC("AcquireItem", RpcTarget.All, item.photonView.ViewID);
             PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).AddWordList(item.key);
         }
