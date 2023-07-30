@@ -1,8 +1,10 @@
+using UnityEditor.Localization;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;
 using UnityEngine.Localization.Components;
 using System.Collections.Generic;
+using System.Linq;
 
 // 번역되지 않아야하는 게임단어를 고정적으로 반환해주는 클래스.
 public class GameLocalizeManager : MonoSingleton<GameLocalizeManager>

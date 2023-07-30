@@ -1,8 +1,11 @@
 using Photon.Pun;
-using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class PlayerRPC : MonoBehaviourPunCallbacks
 {
@@ -101,19 +104,19 @@ public class PlayerRPC : MonoBehaviourPunCallbacks
         }
     }
 
-    //[PunRPC]
-    //public void CreateNewStempInfo(string key1, string key2, string userID)
-    //{
-    //    StempInfo newInfo = new StempInfo();
-    //    newInfo.kind = StempInfo.Kind.Word;
-    //    newInfo.key = GameLocalizeManager.Inst.Localize(key1) + " " + GameLocalizeManager.Inst.Localize(key2);
-    //    newInfo.UserID = userID;
+    [PunRPC]
+    public void CreateNewStempInfo(string key1, string key2, string userID)
+    {
+        StempInfo newInfo = new StempInfo();
+        newInfo.kind = StempInfo.Kind.Word;
+        newInfo.key = GameLocalizeManager.Inst.Localize(key1) + " " + GameLocalizeManager.Inst.Localize(key2);
+        newInfo.UserID = userID;
 
-    //    PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).UpdateStempInfo(newInfo);
-    //}
+        PlayManager.Inst.GetUserData(PhotonNetwork.LocalPlayer.NickName).UpdateStempInfo(newInfo);
+    }
 
     public void RequestCreateNewStempInfo(string key1, string key2, string userID)
     {
-        PlayManager.Inst.comonRPC.photonView.RPC("CreateNewStempInfo", RpcTarget.All, key1, key2, userID);
+        photonView.RPC("CreateNewStempInfo", RpcTarget.All, key1, key2, userID);
     }
 }

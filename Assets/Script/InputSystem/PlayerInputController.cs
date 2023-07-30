@@ -1,6 +1,11 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 using Cinemachine;
+using UniRx;
+using Photon.Pun.Demo.PunBasics;
 
 public class PlayerInputController : MonoBehaviour
 {
