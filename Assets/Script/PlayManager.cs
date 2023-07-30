@@ -161,6 +161,7 @@ public class PlayManager : MonoSingleton<PlayManager>
 
     private void GameWin()
     {
+        GameClearScene.inst.OnPanel();
         Debug.Log("GameWin");
     }
 
