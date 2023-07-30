@@ -13,7 +13,7 @@ public class MoveCore : MonoBehaviour, IMoveable
     private Vector3 dir; // 카메라 좌표계를 받은 벡터
     private Vector3 playerLookVector;
 
-    public static float normalSpeed = 8f;
+    public static float normalSpeed = 16f;
     public static float dashSpeed = 8f;
 
     protected virtual void Awake()
