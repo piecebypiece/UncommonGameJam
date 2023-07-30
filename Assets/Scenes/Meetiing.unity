@@ -20977,7 +20977,7 @@ Transform:
   m_GameObject: {fileID: 699485512}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.24214661, z: -0, w: 0.9702397}
-  m_LocalPosition: {x: -680, y: -0.25, z: -1913}
+  m_LocalPosition: {x: -680, y: -1.85, z: -1913}
   m_LocalScale: {x: 1.7, y: 1.7, z: 1.7}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -63676,8 +63676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameEndTime: 300
-  GameEndDist: 20
-  dangerImage: {fileID: 0}
+  GameEndDist: 30
   playerSpwanPointList:
   - {fileID: 939039454}
   - {fileID: 240816249}
