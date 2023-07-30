@@ -30,6 +30,7 @@ public class HostNetworkController : MonoBehaviourPunCallbacks, INetworkControll
         for (int i = 0; i < keys.Count; i++)
         {
             int index = Random.Range(0, indexs.Count);
+            indexs.RemoveAt(index);
             var transform = itemSpwanList[indexs[index]];
             int gradeIndex = FindGradeIndex(transform.position, center, disLis);
             float per = 0.5f;
