@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6990858763214469799
 Transform:
   m_ObjectHideFlags: 0
@@ -215,7 +215,15 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 6a41444627d7d8d4387929e1f6c058e4, type: 2}
   - {fileID: 2100000, guid: 9fd52884bc7ebae4bad208867ead6d89, type: 2}
   - {fileID: 2100000, guid: 6ea6552867a4c434b9537af78f3acb8a, type: 2}
-  HatMaterials: []
+  HatMaterials:
+  - {fileID: 21300000, guid: 6b9f5e6f2ec3a394db1e303da3d810a2, type: 3}
+  - {fileID: 21300000, guid: 249f864cf90b6af40940c588860955ef, type: 3}
+  - {fileID: 21300000, guid: 51971ab3a22cff3438e9a0160849cb0d, type: 3}
+  - {fileID: 21300000, guid: e794a1cb5e479f24097265104789b162, type: 3}
+  - {fileID: 21300000, guid: b2ef4ea9435a2d848b3a94c0fbf3f8e9, type: 3}
+  - {fileID: 21300000, guid: 2de9facac41bdc14b9cee44e2dd83d1e, type: 3}
+  - {fileID: 21300000, guid: 4f370030cee064b449988aa4f8b8e426, type: 3}
+  - {fileID: 21300000, guid: ed26be828fce9514f88de99c7fe4e9f7, type: 3}
   HatRenderer: {fileID: 8078683811871937008}
   LightPillar: {fileID: 3032665182164838540}
   LightRenderer: {fileID: 6300501113082254031}
