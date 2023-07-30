@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,7 +12,10 @@ public class UIStempListView : MonoBehaviour
     // 스템프 정보 리스트 최근것이 가장 뒤에
     private void Start()
     {
-        PlayManager.Inst.OnStempInfoUpdated += SetList;
+        if ( PhotonNetwork.IsMasterClient)
+        {
+            PlayManager.Inst.OnStempInfoUpdated += SetList;
+        }
     }
     public void SetList(List<StempInfo> list)
     {
