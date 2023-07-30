@@ -8,10 +8,10 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     [SerializeField] protected Rigidbody rigid;
     [SerializeField] public PhotonView PV;
     [SerializeField] GameObject inputManager;
-    private bool isChack = false;
-    private PlayManager PlayManager;
+    [SerializeField] float slowVal = 1f;
 
     public List<Material> Materials;
+    Camera cam;
 
     protected override void Awake()
     {
@@ -22,9 +22,6 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     {
         base.Start();
         DontDestroyOnLoad(gameObject);
-
-        GameObject _playManager = GameObject.Find("PlayManager");
-        _playManager.TryGetComponent(out PlayManager);
         
         // playManager.AllPlayerDistance();
     }
@@ -32,17 +29,41 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if(isTurn.Value)
+        {
+            speed -= slowVal * Time.fixedDeltaTime;
+            if(speed < slowVal)
+            {
+                speed = normalSpeed;
+                isTurn.Value = false;
+                Vector3 camera = new(cam.transform.position.x, 0f, cam.transform.position.z);
+                Vector3 pc = new(transform.position.x, 0f, transform.position.z);
+                direction = (pc - camera).normalized;
+            }
+        }
     }
 
     protected override void OnCollisionEnter(Collision collision)
     {
         base.OnCollisionEnter(collision);
         if (collision.gameObject.CompareTag("Wall"))
-        {
+        { 
+            Vector3 incomingVec = collision.impulse - direction;
+
+            Vector3 normalVec = collision.contacts[0].normal;       // 법선벡터
+
+            Vector3 reflectVec = Vector3.Reflect(incomingVec, normalVec);
+            direction = reflectVec;
+
+            if (isTurn.Value)
+                Dash(speed * 2f);
+            else
+                Dash(speed * 0.9f);
             isTurn.Value = true;
         }
 
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
 
         }

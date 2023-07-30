@@ -48,23 +48,6 @@ public class PlayerInputController : MonoBehaviour
         myPlayer.mainCamera = mainCamera.gameObject;
         followCamera.Follow = playerController.transform;
         followCamera.LookAt = playerController.transform;
-        //compass.followCamera = followCamera.gameObject;
-        myPlayer.isTurn
-             .Where(_ => _ == true)
-             .Subscribe(x =>
-             {
-                 StartCoroutine(InputStop());
-             });
-    }
-
-    private IEnumerator InputStop()
-    {
-        myPlayer.direction = Vector3.back;
-        yield return new WaitForSeconds(turnTime);
-
-        myPlayer.direction = Vector3.forward;
-        myPlayer.isTurn.Value = false;
-        yield break;
     }
 
     private void OnEnable()

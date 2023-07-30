@@ -120,6 +120,7 @@ public class PlayManager : MonoSingleton<PlayManager>
     {
         int MaxCount = 0;
         int count = 0;
+        if (playerConList.Count == 1) return;
         if (playerConList.Count > 2)
         {
             for (int i = 1; i <= playerConList.Count - 1; i++)
