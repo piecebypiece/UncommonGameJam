@@ -12,10 +12,7 @@ public class UIStempListView : MonoBehaviour
     // 스템프 정보 리스트 최근것이 가장 뒤에
     private void Start()
     {
-        if ( PhotonNetwork.IsMasterClient)
-        {
-            PlayManager.Inst.OnStempInfoUpdated += SetList;
-        }
+        PlayManager.Inst.OnStempInfoUpdated += SetList;
     }
     public void SetList(List<StempInfo> list)
     {
