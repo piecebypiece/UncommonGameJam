@@ -12,6 +12,13 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
 
     public List<Material> Materials;
     Camera cam;
+    public List<Material> LightMaterials;
+    public List<Sprite> HatMaterials;
+
+    [Space(10)]
+    public SpriteRenderer HatRenderer;
+    public GameObject LightPillar; // 크기 조절용
+    public MeshRenderer LightRenderer;
 
     protected override void Awake()
     {
@@ -75,6 +82,9 @@ public class PlayerController : MoveCore, IPunInstantiateMagicCallback
         pm.playerConList.Add(this);
         int materIndex = pm.playerConList.Count - 1;
         this.GetComponent<MeshRenderer>().material = Materials[materIndex];
+        this.HatRenderer.sprite = HatMaterials[materIndex];
+        this.LightRenderer.material = LightMaterials[materIndex];
+        this.LightPillar.SetActive(false);
 
         if (pm.playerConList.Count == PhotonNetwork.CurrentRoom.PlayerCount)
         {

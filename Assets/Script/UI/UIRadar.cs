@@ -7,6 +7,7 @@ public class UIRadar : MonoBehaviour
     PlayerController pc;
     [SerializeField]
     bool isClosedSomeOne;
+    bool isVeryClosedSomeOne;
     public void Start()
     {
         pc = PlayManager.Inst.GetMineController();
@@ -23,7 +24,24 @@ public class UIRadar : MonoBehaviour
             else
                 DOTween.Kill(Image.transform);
             Image.SetActive(isClosedSomeOne);
-        }        
-        
+        }
+
+        bool close = isVeryClosedSomeOne;
+        isVeryClosedSomeOne = PlayManager.Inst.CountingAroundPlayer(pc, 25f) > 0;
+        if (isVeryClosedSomeOne != close)
+        {
+            if (isVeryClosedSomeOne)
+            {
+                pc.LightPillar.SetActive(true);
+                pc.LightPillar.transform.DOScaleY(500, 2f);
+            }
+            else
+            {
+                DOTween.Kill(pc.LightPillar.transform);
+                pc.LightPillar.transform.localScale = new Vector3(0.5f, 0, 0.5f);
+                pc.LightPillar.SetActive(false);
+            }
+                
+        }
     }
 }
