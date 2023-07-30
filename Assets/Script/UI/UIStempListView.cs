@@ -21,8 +21,8 @@ public class UIStempListView : MonoBehaviour
         int i = 0;
         for (i = 0; i < viewStempCount && i < list.Count; i++)
         {
-            stempList[i].SetInfo(list[^(i + 1)]);
             stempList[i].gameObject.SetActive(true);
+            stempList[i].SetInfo(list[^(i + 1)]);
         }
 
         for (int j = i; j < viewStempCount; j++)

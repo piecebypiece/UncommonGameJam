@@ -15,7 +15,7 @@ public class UIStemp : MonoBehaviour
     {
         this.info = info;
         text.enabled = info.kind == StempInfo.Kind.Word;
-        image.enabled = info.kind == StempInfo.Kind.Emoji;
+        //image.enabled = info.kind == StempInfo.Kind.Emoji;
 
         switch (info.kind)
         {
